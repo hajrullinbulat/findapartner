@@ -1,0 +1,14 @@
+jar {
+	baseName = 'public-web'
+	version = '0.0.1'
+}
+
+dependencies {
+	compile project(":db-connector")
+
+	compile('org.springframework.boot:spring-boot-starter-freemarker')
+	compile('org.springframework.boot:spring-boot-starter-mail')
+	compile('org.springframework.boot:spring-boot-starter-websocket')
+	compile('org.springframework.boot:spring-boot-starter-web')
+
+}

@@ -1,0 +1,21 @@
+jar {
+	baseName = 'commons'
+	version = '0.0.1'
+}
+
+dependencies {
+	compile 'joda-time:joda-time:2.9.7'
+	compile "com.google.guava:guava:21.0"
+	compile 'commons-lang:commons-lang:2.6'
+	compile 'commons-io:commons-io:2.5'
+	compileOnly('org.projectlombok:lombok')
+
+//	runtime('org.springframework.boot:spring-boot-devtools')
+	compile('org.springframework.boot:spring-boot-starter-aop')
+	compile('org.springframework.boot:spring-boot-starter-jersey')
+	compile('org.springframework.boot:spring-boot-starter-security')
+	compile('org.springframework.boot:spring-boot-starter')
+	compile('org.springframework.data:spring-data-rest-hal-browser')
+	compile('org.springframework.session:spring-session')
+}
+

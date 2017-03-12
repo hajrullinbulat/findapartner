@@ -1,0 +1,11 @@
+spring:
+    datasource:
+        driver-class-name: org.postgresql.Driver
+        url: jdbc:postgresql://localhost:5432/findapartner
+        username: postgres
+        password: postgres
+        plarform: postgres
+    jpa:
+        hibernate:
+            ddl-auto: update
+        show-sql: true
