@@ -1,4 +1,4 @@
-package findapartner.services;
+package com.findapartner;
 
 import org.springframework.stereotype.Service;
 
@@ -8,6 +8,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class TestService {
     public String getField() {
-        return "qwe";
+        return "hello";
     }
 }
