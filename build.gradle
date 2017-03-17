@@ -3,7 +3,10 @@ buildscript {
         springBootVersion = '1.5.2.RELEASE'
     }
     repositories {
+        maven { url "http://repo.spring.io/libs-release" }
+        maven { url "http://repo.spring.io/libs-milestone" }
         mavenCentral()
+        mavenLocal()
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -27,7 +30,12 @@ subprojects {
     compileTestJava.options.encoding = "UTF-8"
 
     repositories {
-        mavenCentral()
+        repositories {
+            maven { url "http://repo.spring.io/libs-release" }
+            maven { url "http://repo.spring.io/libs-milestone" }
+            mavenCentral()
+            mavenLocal()
+        }
     }
 }
 
