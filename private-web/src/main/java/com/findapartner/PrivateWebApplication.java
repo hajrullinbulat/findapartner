@@ -1,13 +1,12 @@
 package com.findapartner;
 
-import de.codecentric.boot.admin.config.EnableAdminServer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @ComponentScan("com.findapartner")
-@EnableAdminServer
+//@EnableAdminServer
 public class PrivateWebApplication {
 
     public static void main(String[] args) {
