@@ -4,12 +4,10 @@ jar {
 }
 
 dependencies {
-	compile project(":db-connector")
-
 //	compile group: 'de.codecentric', name: 'spring-boot-admin-starter-client', version: '1.4.6'
-
 	compile('org.springframework.boot:spring-boot-starter-freemarker')
 //	compile('org.springframework.boot:spring-boot-starter-websocket')
 	compile('org.springframework.boot:spring-boot-starter-web')
 
+	compile project(":db-connector")
 }

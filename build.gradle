@@ -3,8 +3,8 @@ buildscript {
         springBootVersion = '1.5.2.RELEASE'
     }
     repositories {
-        maven { url "http://repo.spring.io/libs-release" }
-        maven { url "http://repo.spring.io/libs-milestone" }
+//        maven { url "http://repo.spring.io/libs-release" }
+//        maven { url "http://repo.spring.io/libs-milestone" }
         mavenCentral()
         mavenLocal()
     }
@@ -31,10 +31,28 @@ subprojects {
 
     repositories {
         repositories {
-            maven { url "http://repo.spring.io/libs-release" }
-            maven { url "http://repo.spring.io/libs-milestone" }
+//            maven { url "http://repo.spring.io/libs-release" }
+//            maven { url "http://repo.spring.io/libs-milestone" }
             mavenCentral()
             mavenLocal()
+        }
+    }
+
+    configurations {
+        provided
+    }
+
+    sourceSets {
+        main {
+            compileClasspath += configurations.provided
+            test.compileClasspath += configurations.provided
+            test.runtimeClasspath += configurations.provided
+        }
+    }
+
+    idea {
+        module {
+            scopes.PROVIDED.plus += [configurations.provided]
         }
     }
 }

@@ -8,7 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan("com.findapartner")
 public class PublicWebApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(PublicWebApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(PublicWebApplication.class, args);
+    }
 }

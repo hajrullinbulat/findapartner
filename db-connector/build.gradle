@@ -4,9 +4,9 @@ jar {
 }
 
 dependencies {
-	compile project(":commons")
-
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
-	compile('org.springframework.boot:spring-boot-starter-data-rest')
+//	compile('org.springframework.boot:spring-boot-starter-data-rest')
 	compile('postgresql:postgresql:9.1-901-1.jdbc4')
+
+	compile project(":commons")
 }

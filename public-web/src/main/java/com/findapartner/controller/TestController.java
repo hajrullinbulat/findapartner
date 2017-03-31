@@ -1,24 +1,41 @@
 package com.findapartner.controller;
 
-import com.findapartner.TestService;
+import com.findapartner.repository.PersonRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Created by hajrullinbulat on 11.03.17.
  */
 @Controller
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class TestController {
-    private TestService testService;
+    private final PersonRepository personRepository;
 
-    @Autowired
-    public TestController(TestService testService) {
-        this.testService = testService;
+    @GetMapping("/jpa")
+    @ResponseBody
+    public ResponseEntity jpaGet() {
+        return ResponseEntity.badRequest().body(personRepository.findAll());
     }
-
-    @GetMapping("/")
-    public String testGet(){
-        return testService.getField();
-    }
+//
+//    @GetMapping("/hql")
+//    @ResponseBody
+//    public ResponseEntity hqlGet() {
+//        Specification<Person> spec = Specifications.<Person>where((root, query, cb) -> {
+//            return cb.and(
+//                    cb.like(root.get("author"), "Joe%"),
+//                    cb.equal(root.get("title"), "Spring boot"));
+//        });
+//        return ResponseEntity.ok(personRepository.findAll(spec));
+//    }
+//
+//    @GetMapping("/dsl")
+//    @ResponseBody
+//    public ResponseEntity queryDslGet() {
+//        return ResponseEntity.badRequest().body(personRepository.findAll());
+//    }
 }
