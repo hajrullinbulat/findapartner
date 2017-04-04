@@ -1,12 +1,14 @@
 jar {
-	baseName = 'db-connector'
-	version = '0.0.1'
+    baseName = 'db-connector'
+    version = '0.0.1'
 }
 
 dependencies {
-	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
 //	compile('org.springframework.boot:spring-boot-starter-data-rest')
-	compile('postgresql:postgresql:9.1-901-1.jdbc4')
+    compile('postgresql:postgresql:9.1-901-1.jdbc4')
+    compile "com.querydsl:querydsl-apt:4.1.4"
+    compile "com.querydsl:querydsl-jpa:4.1.4"
 
-	compile project(":commons")
+    compile project(":commons")
 }

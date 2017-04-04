@@ -21,21 +21,10 @@ public class TestController {
     public ResponseEntity jpaGet() {
         return ResponseEntity.badRequest().body(personRepository.findAll());
     }
-//
-//    @GetMapping("/hql")
-//    @ResponseBody
-//    public ResponseEntity hqlGet() {
-//        Specification<Person> spec = Specifications.<Person>where((root, query, cb) -> {
-//            return cb.and(
-//                    cb.like(root.get("author"), "Joe%"),
-//                    cb.equal(root.get("title"), "Spring boot"));
-//        });
-//        return ResponseEntity.ok(personRepository.findAll(spec));
-//    }
-//
-//    @GetMapping("/dsl")
-//    @ResponseBody
-//    public ResponseEntity queryDslGet() {
-//        return ResponseEntity.badRequest().body(personRepository.findAll());
-//    }
+
+    @GetMapping("/dsl")
+    @ResponseBody
+    public ResponseEntity queryDslGet() {
+        return ResponseEntity.badRequest().body(personRepository.findAll());
+    }
 }

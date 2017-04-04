@@ -9,6 +9,4 @@ import java.util.List;
 
 public interface PersonRepository extends CrudRepository<Person, Long>, QueryDslPredicateExecutor<Person> {
     List<Person> findByLastName(@Param("name") String name);
-
-
 }
