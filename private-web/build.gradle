@@ -6,8 +6,12 @@ jar {
 dependencies {
 //	compile('de.codecentric:spring-boot-admin-server:1.2.3')
 //	compile('de.codecentric:spring-boot-admin-server-ui:1.2.3')
-	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.boot:spring-boot-starter-freemarker')
+
+	compile("org.springframework.boot:spring-boot-starter-web") {
+		exclude module: "spring-boot-starter-tomcat"
+	}
+	compile("org.springframework.boot:spring-boot-starter-jetty")
 
 	compile project(":db-connector")
 }

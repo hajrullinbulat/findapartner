@@ -16,15 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class TestController {
     private final PersonRepository personRepository;
 
-    @GetMapping("/jpa")
+    @GetMapping("/")
     @ResponseBody
     public ResponseEntity jpaGet() {
-        return ResponseEntity.badRequest().body(personRepository.findAll());
-    }
-
-    @GetMapping("/dsl")
-    @ResponseBody
-    public ResponseEntity queryDslGet() {
         return ResponseEntity.badRequest().body(personRepository.findAll());
     }
 }

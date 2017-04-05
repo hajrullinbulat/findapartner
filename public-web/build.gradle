@@ -6,8 +6,10 @@ jar {
 dependencies {
 //	compile group: 'de.codecentric', name: 'spring-boot-admin-starter-client', version: '1.4.6'
 	compile('org.springframework.boot:spring-boot-starter-freemarker')
-//	compile('org.springframework.boot:spring-boot-starter-websocket')
-	compile('org.springframework.boot:spring-boot-starter-web')
+	compile("org.springframework.boot:spring-boot-starter-web") {
+		exclude module: "spring-boot-starter-tomcat"
+	}
+	compile("org.springframework.boot:spring-boot-starter-jetty")
 
 	compile project(":db-connector")
 }
