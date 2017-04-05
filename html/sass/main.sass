@@ -1,0 +1,197 @@
+@import "bourbon"
+@import "vars.sass"
+
+//Load Libs SASS
+@import "app/libs/animate/animate.sass"
+
+*::-webkit-input-placeholder
+	color: #666
+	opacity: 1
+
+*:-moz-placeholder
+	color: #666
+	opacity: 1
+
+*::-moz-placeholder
+	color: #666
+	opacity: 1
+
+*:-ms-input-placeholder
+	color: #666
+	opacity: 1
+
+body input:focus:required:invalid,
+body textarea:focus:required:invalid
+	color: #666
+body input:required:valid,
+body textarea:required:valid
+.first-section
+  background-image: url("../img/iStock_000019789162_Medium.jpg")
+  background-color: #FFF
+  height: 900px
+  background-repeat: no-repeat
+  background-size: 100%
+
+.location
+	color: $white
+	font-size: 19px
+	i
+		padding-right: 5px
+
+h1
+	font-family: "Evolventa", sans-serif
+	color: $white
+	font-size: 50px
+
+.header-wrapper
+	padding-top: 25px
+	.lk-link
+		a
+			color: $dark-blue
+
+.main-form
+	display: inline-flex
+	flex-wrap: wrap
+	justify-content:center
+	height: 700px
+	align-items: center
+
+.main-button
+	width: 273px
+	height: 74px
+	border-radius: 51px
+	font-size: 24px
+	color: $white
+	background-color: $red
+
+.search-button
+	background-color: $dark-grey
+
+.ad-button
+	margin-top: -6px
+
+/* Styles for dialog window */
+#small-dialog 
+	background: white
+	padding: 20px 30px
+	text-align: left
+	max-width: 400px
+	margin: 40px auto
+	position: relative
+
+.login-container
+	margin: 40px auto
+	form
+		margin: 0 auto
+		input 
+			font-family: MullerThin, sans-serif
+			display: block
+			width: 80%
+			margin: 0 auto
+			padding: 10px
+	input[type="text"],input[type="password"]
+		margin-bottom: 20px
+		border: none
+		border-bottom: 1px solid #efefef
+		position: relative
+		transition: border .55s
+	input[type="text"]:focus,input[type="password"]:focus
+		outline: none
+		border: none
+		border-bottom: 1px solid $red
+	input[type="submit"]
+		width: 60%
+		background: $grey
+		border: none
+		border-radius: 50px
+		text-transform: uppercase
+		transtion: background-color .5s
+	h2
+		font-family: Evolventa,sans-serif
+		text-align: center
+	input[type="submit"]:hover
+		background: $red
+		color: $white
+		cursor: pointer
+	.social-auth__or
+		margin: 23px -20px 19px
+		color: #858585
+		background: linear-gradient(to top,#ececec,#ececec) 0 55%/100% 1px no-repeat
+		font-size: 15px
+		line-height: 18px
+		text-align: center
+		.social-auth__or-text
+			background: #fff
+			padding: 0 7px
+	.social-auth__icons
+		font-size: 30px
+		.fa-vk:hover
+			color: #507299
+		.fa-facebook-square:hover
+			color: #3b5998
+		.fa-google-plus-square:hover
+			color: #db4437
+		.fa-odnoklassniki-square:hover
+			color: #ee8208
+
+/**
+ * Fade-move animation for second dialog
+ */
+
+/* at start */
+.my-mfp-slide-bottom .zoom-anim-dialog 
+	opacity: 0
+	-webkit-transition: all 0.2s ease-out
+	-moz-transition: all 0.2s ease-out
+	-o-transition: all 0.2s ease-out
+	transition: all 0.2s ease-out
+
+	-webkit-transform: translateY(-20px) perspective( 600px ) rotateX( 10deg )
+	-moz-transform: translateY(-20px) perspective( 600px ) rotateX( 10deg )
+	-ms-transform: translateY(-20px) perspective( 600px ) rotateX( 10deg )
+	-o-transform: translateY(-20px) perspective( 600px ) rotateX( 10deg )
+	transform: translateY(-20px) perspective( 600px ) rotateX( 10deg )
+
+
+
+/* animate in */
+.my-mfp-slide-bottom.mfp-ready .zoom-anim-dialog 
+	opacity: 1
+	-webkit-transform: translateY(0) perspective( 600px ) rotateX( 0 )
+	-moz-transform: translateY(0) perspective( 600px ) rotateX( 0 )
+	-ms-transform: translateY(0) perspective( 600px ) rotateX( 0 )
+	-o-transform: translateY(0) perspective( 600px ) rotateX( 0 )
+	transform: translateY(0) perspective( 600px ) rotateX( 0 )
+
+
+/* animate out */
+.my-mfp-slide-bottom.mfp-removing .zoom-anim-dialog 
+	opacity: 0
+
+	-webkit-transform: translateY(-10px) perspective( 600px ) rotateX( 10deg )
+	-moz-transform: translateY(-10px) perspective( 600px ) rotateX( 10deg )
+	-ms-transform: translateY(-10px) perspective( 600px ) rotateX( 10deg )
+	-o-transform: translateY(-10px) perspective( 600px ) rotateX( 10deg )
+	transform: translateY(-10px) perspective( 600px ) rotateX( 10deg )
+
+
+/* Dark overlay, start state */
+.my-mfp-slide-bottom.mfp-bg 
+	opacity: 0
+
+	-webkit-transition: opacity 0.3s ease-out
+	-moz-transition: opacity 0.3s ease-out
+	-o-transition: opacity 0.3s ease-out
+	transition: opacity 0.3s ease-out
+
+/* animate in */
+.my-mfp-slide-bottom.mfp-ready.mfp-bg 
+	opacity: 0.8
+
+/* animate out */
+.my-mfp-slide-bottom.mfp-removing.mfp-bg 
+	opacity: 0
+
+
+//ALWAYS END
+@import "media"
