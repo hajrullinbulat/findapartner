@@ -1,4 +1,4 @@
-package com.findapartner.entity;
+package com.findandplay.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,7 +12,5 @@ import javax.persistence.Entity;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class Person extends BaseEntity {
-    private String firstName;
-    private String lastName;
+public class SportOfSpace extends BaseEntity {
 }

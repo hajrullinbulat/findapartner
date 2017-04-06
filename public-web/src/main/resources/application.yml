@@ -1,9 +1,9 @@
 server:
   port: 8080
+security:
+  basic:
+    enabled: false
 spring:
-#  boot:
-#    admin:
-#      url: http://localhost:8082
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/findapartner
@@ -14,6 +14,10 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
-security:
-  basic:
-    enabled: false
+    properties:
+      jadira:
+        usertype:
+          autoRegisterUserTypes: true
+  #  boot:
+  #    admin:
+  #      url: http://localhost:8082

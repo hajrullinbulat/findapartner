@@ -1,11 +1,11 @@
-package com.findapartner;
+package com.findandplay;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan("com.findapartner")
+@ComponentScan("com.findandplay")
 //@EnableAdminServer
 public class PrivateWebApplication {
 

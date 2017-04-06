@@ -14,7 +14,7 @@ buildscript {
 }
 
 allprojects {
-    group 'com.findapartner'
+    group 'com.findandplay'
     version '0.0.1'
 }
 

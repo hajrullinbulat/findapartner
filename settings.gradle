@@ -1,4 +1,4 @@
-rootProject.name = 'FindAPartner'
+rootProject.name = 'FindAndPlay'
 
 include 'api'
 include 'public-web'

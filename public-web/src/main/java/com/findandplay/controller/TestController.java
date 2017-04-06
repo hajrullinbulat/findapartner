@@ -1,6 +1,6 @@
-package com.findapartner.controller;
+package com.findandplay.controller;
 
-import com.findapartner.repository.PersonRepository;
+import com.findandplay.repository.PersonRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

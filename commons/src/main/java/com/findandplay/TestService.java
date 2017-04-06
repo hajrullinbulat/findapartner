@@ -1,4 +1,4 @@
-package com.findapartner;
+package com.findandplay;
 
 import org.springframework.stereotype.Service;
 

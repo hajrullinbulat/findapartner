@@ -1,6 +1,6 @@
-package com.findapartner.repository;
+package com.findandplay.repository;
 
-import com.findapartner.entity.Person;
+import com.findandplay.entity.Person;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 

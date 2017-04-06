@@ -1,4 +1,4 @@
-package com.findapartner.entity;
+package com.findandplay.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
