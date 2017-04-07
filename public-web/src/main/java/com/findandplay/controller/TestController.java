@@ -1,9 +1,7 @@
 package com.findandplay.controller;
 
-import com.findandplay.repository.PersonRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,11 +12,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class TestController {
-    private final PersonRepository personRepository;
 
     @GetMapping("/")
     @ResponseBody
-    public ResponseEntity jpaGet() {
-        return ResponseEntity.badRequest().body(personRepository.findAll());
+    public String  jpaGet() {
+        return "test";
     }
 }

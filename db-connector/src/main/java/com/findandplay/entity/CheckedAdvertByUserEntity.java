@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -14,8 +14,13 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class CheckedAdvertByUser extends BaseEntity {
+@Table(name = "checked_adverts")
+public class CheckedAdvertByUserEntity extends BaseEntity {
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private UserEntity user;
 
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private AdvertEntity advert;
 
     private LocalDateTime checked;
     private CheckStatus status;
