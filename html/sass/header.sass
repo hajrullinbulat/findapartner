@@ -13,16 +13,54 @@ body
 	display: none
 
 header
-	display: none
-  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16),0 0 0 1px rgba(0,0,0,0.08);
+	position: fixed
+	width: 100%
+	z-index: 100
+
+.ha-header-embedded
+	padding-top: 25px
+	.location
+		a
+			color: $white
+	.lk-link
+		a
+			color: #000
+
+.ha-header-sticky
+	box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16),0 0 0 1px rgba(0,0,0,0.08)
+	background-color: $white
+	transition: all 0.5s
+	.location
+		a
+			color: #000
 
 .header-wrapper
 	height: 65px
-  line-height: 65px
+	line-height: 65px
 
 .logo
 	img
 		width: 132px
+
+.location
+	a
+		color: $white
+		font-size: 19px
+		i
+			padding-right: 5px
+			transition: all 0.5s ease-in-out
+			&:hover
+				transform:scaleX(-1)
+		&:focus
+			outline: none
+			text-decoration: none
+		&:hover
+			text-decoration: none
+
+.location-header
+	@extend .location
+	a
+		color: #000
 
 button
 	height: 39px
@@ -37,9 +75,48 @@ button
 .ad-button
 	color: $white
 	background-color: $red
+	&:focus
+		outline: none
+	&:hover
+		background-color: $red_active
+		transition: background-color 400ms linear
 
 .lk-link
 	a
 		text-decoration: underline
 		color: $dark-grey
 		font-family: "MullerThin", sans-serif
+		&:focus
+			outline: none
+
+.ha-header-rotate 
+ height: 220px;
+ top: 50px;
+ padding-left: 50px;
+ padding-right: 50px;
+
+
+.ha-header-rotate .ha-header-front 
+ transform: translateY(-100%) rotateX(90deg);
+
+
+.ha-header-rotate .ha-header-bottom
+	top: 50%
+	transition: transform 0.5s
+	transform: rotateX(0deg) translateY(-100%)
+
+.ha-header-rotate 
+	height: 220px
+	top: 50px
+	padding-left: 50px
+	padding-right: 50px
+
+ 
+.ha-header-rotate .ha-header-front 
+	transform: translateY(-100%) rotateX(90deg)
+
+ 
+.ha-header-rotate .ha-header-bottom 
+	top: 50%
+	transition: transform 0.5s
+	transform: rotateX(0deg) translateY(-100%)

@@ -27,33 +27,19 @@ body input:required:valid,
 body textarea:required:valid
 .first-section
   background-image: url("../img/iStock_000019789162_Medium.jpg")
-  background-color: #FFF
-  height: 900px
+  height: 100vh
   background-repeat: no-repeat
   background-size: 100%
-
-.location
-	color: $white
-	font-size: 19px
-	i
-		padding-right: 5px
-
 h1
 	font-family: "Evolventa", sans-serif
 	color: $white
 	font-size: 50px
 
-.header-wrapper
-	padding-top: 25px
-	.lk-link
-		a
-			color: $dark-blue
-
 .main-form
 	display: inline-flex
 	flex-wrap: wrap
 	justify-content:center
-	height: 700px
+	height: 94vh
 	align-items: center
 
 .main-button
@@ -63,9 +49,16 @@ h1
 	font-size: 24px
 	color: $white
 	background-color: $red
+	&:focus
+		outline: none
+	&:hover
+		background-color: $red_active
+		transition: background-color 400ms linear
 
 .search-button
 	background-color: $dark-grey
+	&:hover
+		background-color: $dark-grey_active
 
 .ad-button
 	margin-top: -6px
@@ -106,6 +99,8 @@ h1
 		border-radius: 50px
 		text-transform: uppercase
 		transtion: background-color .5s
+		&:focus
+			outline: none
 	h2
 		font-family: Evolventa,sans-serif
 		text-align: center
@@ -192,6 +187,28 @@ h1
 .my-mfp-slide-bottom.mfp-removing.mfp-bg 
 	opacity: 0
 
+#location-dialog
+	background: $grey
+	padding: 20px 30px
+	text-align: left
+	max-width: 600px
+	margin: 40px auto
+	position: relative
+
+#sport-selection-dialog
+	background: $white
+	padding: 20px 30px
+	max-width: 800px
+	margin: 40px auto
+	position: relative
+	.row
+		width: 728px
+	img
+		width: 166px
+	h4
+		position: absolute;
+		top: 29px;
+		left: 67px;
 
 //ALWAYS END
 @import "media"
