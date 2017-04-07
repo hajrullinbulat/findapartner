@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 @Table(name = "checked_adverts")
 public class CheckedAdvertByUserEntity extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
     private UserEntity user;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

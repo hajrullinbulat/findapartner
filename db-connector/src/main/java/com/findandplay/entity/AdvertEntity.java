@@ -2,10 +2,7 @@ package com.findandplay.entity;
 
 import com.findandplay.enums.AdStatus;
 import com.findandplay.enums.Skill;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -17,6 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Table(name = "adverts")
+@Builder
 public class AdvertEntity extends BaseEntity {
     private LocalDateTime created;
     private AdStatus status;

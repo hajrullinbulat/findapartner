@@ -1,9 +1,7 @@
 package com.findandplay.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import com.findandplay.enums.City;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -17,6 +15,7 @@ import java.util.Set;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Table(name = "users")
+@Builder
 public class UserEntity extends BaseEntity {
     private String name;
     private String surname;
@@ -27,7 +26,7 @@ public class UserEntity extends BaseEntity {
     private String key;
     private LocalDateTime created;
     private LocalDateTime lastAction;
-    private String city; //todo подумать
+    private City city;
     @Embedded
     private ImageEmbeddable avatar;
 
@@ -43,22 +42,6 @@ public class UserEntity extends BaseEntity {
             cascade = {CascadeType.ALL}
     )
     private List<SportOfUserEntity> sports;
-
-    //todo скорее всего не нужно
-    @OneToMany(
-            mappedBy = "user",
-            fetch = FetchType.LAZY,
-            cascade = {CascadeType.ALL}
-    )
-    private List<CheckedAdvertByUserEntity> checkedAdverts;
-
-    //todo скорее всего не нужно
-    @OneToMany(
-            mappedBy = "user",
-            fetch = FetchType.LAZY,
-            cascade = {CascadeType.ALL}
-    )
-    private List<CheckedSectionByUserEntity> checkedSections;
 
     @OneToMany(
             mappedBy = "author",

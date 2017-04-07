@@ -1,10 +1,7 @@
 package com.findandplay.entity;
 
 import com.findandplay.enums.SportType;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -15,6 +12,7 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Table(name = "sports")
+@Builder
 public class SportEntity extends BaseEntity {
     private SportType name;
 }

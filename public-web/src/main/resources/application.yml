@@ -6,7 +6,7 @@ security:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/findapartner
+    url: jdbc:postgresql://localhost:5432/findandplay
     username: postgres
     password: postgres
     platform: postgres
