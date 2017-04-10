@@ -4,7 +4,8 @@ jar {
 }
 
 dependencies {
-    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile('org.springframework.boot:spring-boot-starter-data-jpa:1.5.2.RELEASE')
+    compile('com.cosium.spring.data:spring-data-jpa-entity-graph:1.11.02')
     compile('postgresql:postgresql:9.1-901-1.jdbc4')
 
     compile project(":commons")

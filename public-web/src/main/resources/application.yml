@@ -18,6 +18,8 @@ spring:
       jadira:
         usertype:
           autoRegisterUserTypes: true
+      hibernate:
+        format_sql: true
   #  boot:
   #    admin:
   #      url: http://localhost:8082

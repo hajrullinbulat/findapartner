@@ -1,7 +1,7 @@
 package com.findandplay.repository;
 
+import com.cosium.spring.data.jpa.entity.graph.repository.EntityGraphJpaRepository;
 import com.findandplay.entity.UserEntity;
-import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface SectionRepository extends JpaRepository<UserEntity, Long> {
+public interface SectionRepository extends EntityGraphJpaRepository<UserEntity, Long> {
 }

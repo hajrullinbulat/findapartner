@@ -15,6 +15,17 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Table(name = "adverts")
 @Builder
+
+@NamedEntityGraphs(
+        @NamedEntityGraph(
+                name = "getAdvert",
+                attributeNodes = {
+                        @NamedAttributeNode("author"),
+                        @NamedAttributeNode("sport"),
+                        @NamedAttributeNode("users")
+                }
+        )
+)
 public class AdvertEntity extends BaseEntity {
     private LocalDateTime created;
     private AdStatus status;
