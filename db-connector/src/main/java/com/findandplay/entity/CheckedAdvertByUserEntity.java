@@ -24,6 +24,7 @@ public class CheckedAdvertByUserEntity extends BaseEntity {
     private AdvertEntity advert;
 
     private LocalDateTime checked;
+    @Enumerated(EnumType.STRING)
     private CheckStatus status;
 
 }

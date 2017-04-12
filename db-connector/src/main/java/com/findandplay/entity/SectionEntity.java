@@ -18,6 +18,7 @@ import java.util.List;
 @Table(name = "sections")
 public class SectionEntity extends BaseEntity {
     private LocalDateTime created;
+    @Enumerated(EnumType.STRING)
     private AdStatus status;
     private String address;
     private String info;

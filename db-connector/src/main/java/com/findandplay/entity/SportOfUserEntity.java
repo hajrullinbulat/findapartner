@@ -21,6 +21,6 @@ public class SportOfUserEntity extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "sport_id")
     private SportEntity sport;
-
+    @Enumerated(EnumType.STRING)
     private Skill level;
 }

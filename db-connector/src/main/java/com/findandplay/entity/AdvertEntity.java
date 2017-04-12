@@ -28,7 +28,9 @@ import java.util.List;
 )
 public class AdvertEntity extends BaseEntity {
     private LocalDateTime created;
+    @Enumerated(EnumType.STRING)
     private AdStatus status;
+    @Enumerated(EnumType.STRING)
     private Skill level; //min level //todo подумать про max level
     private Integer count;
     private String info;

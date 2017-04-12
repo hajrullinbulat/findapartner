@@ -15,7 +15,18 @@ import java.util.Set;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Table(name = "users")
-@Builder
+@Builder(toBuilder = true)
+@NamedEntityGraphs(
+        @NamedEntityGraph(
+                name = "getUser",
+                attributeNodes = {
+                        @NamedAttributeNode("createdAdverts"),
+//                        @NamedAttributeNode("createdSpaces"),
+//                        @NamedAttributeNode("createdSections"),
+//                        @NamedAttributeNode("sports")
+                }
+        )
+)
 public class UserEntity extends BaseEntity {
     private String name;
     private String surname;
@@ -26,15 +37,16 @@ public class UserEntity extends BaseEntity {
     private String key;
     private LocalDateTime created;
     private LocalDateTime lastAction;
+    @Enumerated(EnumType.STRING)
     private City city;
     @Embedded
     private ImageEmbeddable avatar;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
-    private Set<RoleEntity> roles = new HashSet<>();
+    private Set<RoleEntity> roles = new HashSet<RoleEntity>();
 
     @OneToMany(
             mappedBy = "user",
@@ -63,4 +75,8 @@ public class UserEntity extends BaseEntity {
             cascade = {CascadeType.ALL}
     )
     private List<SpaceEntity> createdSpaces;
+
+    public UserEntity(UserEntity user) {
+        user.toBuilder().build();
+    }
 }

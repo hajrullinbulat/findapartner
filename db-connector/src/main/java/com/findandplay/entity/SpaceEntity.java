@@ -19,6 +19,7 @@ import java.util.Set;
 @Table(name = "spaces")
 public class SpaceEntity extends BaseEntity {
     private LocalDateTime created;
+    @Enumerated(EnumType.STRING)
     private AdStatus status;
     private String address;
     private String info;

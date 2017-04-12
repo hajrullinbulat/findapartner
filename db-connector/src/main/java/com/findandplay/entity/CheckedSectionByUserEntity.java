@@ -24,5 +24,6 @@ public class CheckedSectionByUserEntity extends BaseEntity {
     private SectionEntity section;
 
     private LocalDateTime checked;
+    @Enumerated(EnumType.STRING)
     private CheckStatus status;
 }
