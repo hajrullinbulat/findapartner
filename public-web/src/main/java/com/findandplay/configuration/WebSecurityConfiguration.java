@@ -31,7 +31,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/")
                 .antMatchers("/signup")
                 .antMatchers("/get")
-                .antMatchers("/get1");
+                .antMatchers("/get1")
+                .antMatchers("/get2");
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.findandplay.repository;
+package com.findandplay.jpaRepository;
 
 import com.cosium.spring.data.jpa.entity.graph.domain.EntityGraph;
 import com.cosium.spring.data.jpa.entity.graph.repository.EntityGraphJpaRepository;

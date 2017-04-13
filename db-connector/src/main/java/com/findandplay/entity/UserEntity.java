@@ -18,12 +18,9 @@ import java.util.Set;
 @Builder(toBuilder = true)
 @NamedEntityGraphs(
         @NamedEntityGraph(
-                name = "getUser",
+                name = "User.default",
                 attributeNodes = {
-                        @NamedAttributeNode("createdAdverts"),
-//                        @NamedAttributeNode("createdSpaces"),
-//                        @NamedAttributeNode("createdSections"),
-//                        @NamedAttributeNode("sports")
+                        @NamedAttributeNode("roles"),
                 }
         )
 )

@@ -1,7 +1,7 @@
 package com.findandplay.service;
 
 import com.findandplay.entity.UserEntity;
-import com.findandplay.repository.UserRepository;
+import com.findandplay.jpaRepository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

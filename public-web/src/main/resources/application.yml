@@ -19,6 +19,15 @@ spring:
     username: postgres
     password: postgres
     platform: postgres
+  jdbc_datasource:
+      type: com.zaxxer.hikari.HikariDataSource
+      driver-class-name: org.postgresql.Driver
+      url: jdbc:postgresql://localhost:5432/findandplay
+      username: postgres
+      password: postgres
+      platform: postgres
+      hikari:
+        idle-timeout: 10000
   jpa:
     hibernate:
       ddl-auto: update

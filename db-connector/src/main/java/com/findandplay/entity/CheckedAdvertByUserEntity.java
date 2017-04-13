@@ -14,6 +14,20 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
+@NamedEntityGraphs({
+        @NamedEntityGraph(
+                name = "CheckedAdvert.user",
+                attributeNodes = {
+                        @NamedAttributeNode("user")
+                }
+        ),
+        @NamedEntityGraph(
+                name = "CheckedAdvert.advert",
+                attributeNodes = {
+                        @NamedAttributeNode("advert")
+                }
+        )
+})
 @Table(name = "checked_adverts")
 public class CheckedAdvertByUserEntity extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

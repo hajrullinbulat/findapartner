@@ -5,6 +5,10 @@ jar {
 
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-data-jpa:1.5.2.RELEASE')
+    compile('org.springframework.boot:spring-boot-starter-jdbc:1.5.2.RELEASE') {
+        exclude module: "org.apache.tomcat:tomcat-jdbc"
+    }
+    compile('com.zaxxer:HikariCP:2.6.1')
     compile('com.cosium.spring.data:spring-data-jpa-entity-graph:1.11.02')
     compile('postgresql:postgresql:9.1-901-1.jdbc4')
 

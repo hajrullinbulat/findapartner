@@ -6,8 +6,10 @@ import com.findandplay.entity.RoleEntity;
 import com.findandplay.entity.SportEntity;
 import com.findandplay.entity.UserEntity;
 import com.findandplay.enums.*;
-import com.findandplay.repository.AdvertRepository;
-import com.findandplay.repository.UserRepository;
+import com.findandplay.jpaRepository.AdvertRepository;
+import com.findandplay.jpaRepository.CheckedAdverts;
+import com.findandplay.jdbcRepository.UserJDBCRepository;
+import com.findandplay.jpaRepository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +30,8 @@ import java.util.Set;
 public class TestController {
     private final UserRepository userRepository;
     private final AdvertRepository advertRepository;
+    private final CheckedAdverts checkedAdverts;
+    private final UserJDBCRepository userJDBCRepository;
 
     @GetMapping("/")
     @ResponseBody
@@ -70,13 +74,27 @@ public class TestController {
     @GetMapping("/get")
     @ResponseBody
     public ResponseEntity get() {
-        UserEntity one = userRepository.findUserById(63L, EntityGraphUtils.fromName("getUser"));
+        UserEntity one = userRepository.findOne(73L);
         return ResponseEntity.ok(one);
     }
+
     @GetMapping("/get1")
     @ResponseBody
     public ResponseEntity get1() {
-        AdvertEntity one = advertRepository.findAdvertById(64L, EntityGraphUtils.fromName("getAdvert"));
+        AdvertEntity one = advertRepository.findAdvertById(74L, EntityGraphUtils.fromName("getAdvert"));
+//        UserEntity one1 = userRepository.findOne(79L);
+//
+//
+//        CheckedAdvertByUserEntity checkedAdvertByUserEntity = new CheckedAdvertByUserEntity(one1, one, LocalDateTime.now(), CheckStatus.WAITING);
+//        checkedAdverts.save(checkedAdvertByUserEntity);
+
         return ResponseEntity.ok(one);
+    }
+
+    @GetMapping("/get2")
+    @ResponseBody
+    public ResponseEntity get2() {
+        userJDBCRepository.getUserWithCreatedAndCheckedAdverts("79991697612");
+        return ResponseEntity.ok("ok");
     }
 }

@@ -15,17 +15,21 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Table(name = "adverts")
 @Builder
-
-@NamedEntityGraphs(
+@NamedEntityGraphs({
         @NamedEntityGraph(
-                name = "getAdvert",
+                name = "Advert.author_sport",
                 attributeNodes = {
                         @NamedAttributeNode("author"),
-                        @NamedAttributeNode("sport"),
-                        @NamedAttributeNode("users")
+                        @NamedAttributeNode("sport")
+                }
+        ),
+        @NamedEntityGraph(
+                name = "Advert.sport",
+                attributeNodes = {
+                        @NamedAttributeNode("sport")
                 }
         )
-)
+})
 public class AdvertEntity extends BaseEntity {
     private LocalDateTime created;
     @Enumerated(EnumType.STRING)
@@ -36,6 +40,7 @@ public class AdvertEntity extends BaseEntity {
     private String info;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "author_id")
     private UserEntity author;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
