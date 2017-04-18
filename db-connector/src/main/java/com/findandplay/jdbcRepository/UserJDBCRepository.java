@@ -9,8 +9,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
-import java.sql.SQLException;
-import java.util.stream.IntStream;
 
 @Repository
 public class UserJDBCRepository {
@@ -22,22 +20,9 @@ public class UserJDBCRepository {
     }
 
     @Transactional(readOnly = true)
-    public UserDTO getUserWithCreatedAndCheckedAdverts(String msisdn) {
-//        UserDTO userDTO = jdbcTemplate.queryForObject(Query.test,
-//                (rs, rowNum) -> {
-//                    return new UserDTO();
-//                }, msisdn);
+    public UserDTO getUserWithCreatedAndCheckedSections(String msisdn) {
         UserDTO userDTO = jdbcTemplate.queryForObject(Query.test,
                 (rs, rowNum) -> {
-                    IntStream.range(0, rs.getMetaData().getColumnCount())
-                            .forEach(i -> {
-                                try {
-                                    System.out.println(rs.getMetaData().getColumnName(i));
-                                    System.out.println(rs.getObject(i));
-                                } catch (SQLException e) {
-                                    e.printStackTrace();
-                                }
-                            });
                     return new UserDTO();
                 }, msisdn);
         return userDTO;

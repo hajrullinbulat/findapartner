@@ -94,7 +94,7 @@ public class TestController {
     @GetMapping("/get2")
     @ResponseBody
     public ResponseEntity get2() {
-        userJDBCRepository.getUserWithCreatedAndCheckedAdverts("79991697612");
+        userJDBCRepository.getUserWithCreatedAndCheckedSections("79991697612");
         return ResponseEntity.ok("ok");
     }
 }
