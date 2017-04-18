@@ -22,10 +22,10 @@ public class UserWithCreatedAndCheckedSectionsExtractor implements ResultSetExtr
             user = Optional.ofNullable(user)
                     .orElse(
                             UserDTO.builder()
-                                    .id(rs.getObject("me_id", Long.class))
+                                    .id((Long) rs.getObject("me_id"))
                                     .name(rs.getString("my_name")).build()
                     );
-            Long advertId = rs.getObject("advert_id", Long.class);
+            Long advertId = (Long) rs.getObject("advert_id");
             if (advertId != null) {
                 createdAdverts = Optional.ofNullable(createdAdverts).orElse(new HashMap<>());
                 if (!createdAdverts.containsKey(advertId)) {
@@ -36,7 +36,7 @@ public class UserWithCreatedAndCheckedSectionsExtractor implements ResultSetExtr
                     createdAdverts.put(advertId, advert);
                 }
 
-                Long checkedAdvertsId = rs.getObject("my_adverts_id", Long.class);
+                Long checkedAdvertsId = (Long) rs.getObject("my_adverts_id");
                 if (checkedAdvertsId != null) {
                     checkedMyAdverts = Optional.ofNullable(checkedMyAdverts).orElse(Collections.emptyMap());
                     if (!checkedMyAdverts.containsKey(checkedAdvertsId)) {
@@ -56,15 +56,15 @@ public class UserWithCreatedAndCheckedSectionsExtractor implements ResultSetExtr
                     }
                 }
             }
-            Long sectionId = rs.getObject("checked_sections_id", Long.class);
+            Long sectionId = (Long) rs.getObject("checked_sections_id");
             if (sectionId != null) {
                 checkedSections = Optional.ofNullable(checkedSections).orElse(Collections.emptyMap());
                 if (!checkedSections.containsKey(sectionId)) {
                     SectionDTO section = SectionDTO.builder()
-                            .id(rs.getObject("checked_sections_section_id", Long.class))
+                            .id((Long) rs.getObject("checked_sections_section_id"))
                             .info(rs.getString("checked_sections_section_info")).build();
                     UserDTO user = UserDTO.builder()
-                            .id(rs.getObject("checked_sections_user_id", Long.class))
+                            .id((Long) rs.getObject("checked_sections_user_id"))
                             .name(rs.getString("checked_sections_user_name")).build();
                     CheckedSectionByUserDTO checkedSection = CheckedSectionByUserDTO.builder()
                             .id(sectionId)
