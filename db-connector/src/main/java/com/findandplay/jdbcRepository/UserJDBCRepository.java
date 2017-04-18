@@ -2,6 +2,7 @@ package com.findandplay.jdbcRepository;
 
 import com.findandplay.Query;
 import com.findandplay.dto.UserDTO;
+import com.findandplay.resultSetExtractor.UserWithCreatedAndCheckedSectionsExtractor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -21,10 +22,6 @@ public class UserJDBCRepository {
 
     @Transactional(readOnly = true)
     public UserDTO getUserWithCreatedAndCheckedSections(String msisdn) {
-        UserDTO userDTO = jdbcTemplate.queryForObject(Query.test,
-                (rs, rowNum) -> {
-                    return new UserDTO();
-                }, msisdn);
-        return userDTO;
+        return jdbcTemplate.query(Query.test, new UserWithCreatedAndCheckedSectionsExtractor(), msisdn);
     }
 }

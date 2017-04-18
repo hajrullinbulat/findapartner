@@ -1,6 +1,7 @@
 package com.findandplay.controller;
 
 import com.cosium.spring.data.jpa.entity.graph.domain.EntityGraphUtils;
+import com.findandplay.dto.UserDTO;
 import com.findandplay.entity.AdvertEntity;
 import com.findandplay.entity.RoleEntity;
 import com.findandplay.entity.SportEntity;
@@ -94,7 +95,7 @@ public class TestController {
     @GetMapping("/get2")
     @ResponseBody
     public ResponseEntity get2() {
-        userJDBCRepository.getUserWithCreatedAndCheckedSections("79991697612");
-        return ResponseEntity.ok("ok");
+        UserDTO userWithCreatedAndCheckedSections = userJDBCRepository.getUserWithCreatedAndCheckedSections("79991697612");
+        return ResponseEntity.ok(userWithCreatedAndCheckedSections);
     }
 }
