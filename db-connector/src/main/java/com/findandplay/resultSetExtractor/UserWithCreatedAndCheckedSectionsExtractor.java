@@ -18,7 +18,7 @@ public class UserWithCreatedAndCheckedSectionsExtractor implements ResultSetExtr
 
     @Override
     public UserDTO extractData(ResultSet rs) throws SQLException, DataAccessException {
-        if (rs.next()) {
+        while (rs.next()) {
             user = Optional.ofNullable(user)
                     .orElse(
                             UserDTO.builder()
@@ -38,10 +38,10 @@ public class UserWithCreatedAndCheckedSectionsExtractor implements ResultSetExtr
 
                 Long checkedAdvertsId = (Long) rs.getObject("my_adverts_id");
                 if (checkedAdvertsId != null) {
-                    checkedMyAdverts = Optional.ofNullable(checkedMyAdverts).orElse(Collections.emptyMap());
+                    checkedMyAdverts = Optional.ofNullable(checkedMyAdverts).orElse(new HashMap<>());
                     if (!checkedMyAdverts.containsKey(checkedAdvertsId)) {
                         UserDTO checkedAdvertUser = UserDTO.builder()
-                                .id(rs.getObject("user_id_from_my_adverts", Long.class))
+                                .id((Long) rs.getObject("user_id_from_my_adverts"))
                                 .name(rs.getString("user_name_from_my_adverts")).build();
                         CheckedAdvertByUserDTO checkedAdvert = CheckedAdvertByUserDTO.builder()
                                 .id(checkedAdvertsId)
@@ -50,7 +50,7 @@ public class UserWithCreatedAndCheckedSectionsExtractor implements ResultSetExtr
                         checkedMyAdverts.put(checkedAdvertsId, checkedAdvert);
 
                         AdvertDTO advertDTO = createdAdverts.get(advertId);
-                        List<CheckedAdvertByUserDTO> checkedUsers = Optional.ofNullable(advertDTO.getUsers()).orElse(Collections.emptyList());
+                        List<CheckedAdvertByUserDTO> checkedUsers = Optional.ofNullable(advertDTO.getUsers()).orElse(new ArrayList<>());
                         checkedUsers.add(checkedAdvert);
                         advertDTO.setUsers(checkedUsers);
                     }
@@ -58,7 +58,7 @@ public class UserWithCreatedAndCheckedSectionsExtractor implements ResultSetExtr
             }
             Long sectionId = (Long) rs.getObject("checked_sections_id");
             if (sectionId != null) {
-                checkedSections = Optional.ofNullable(checkedSections).orElse(Collections.emptyMap());
+                checkedSections = Optional.ofNullable(checkedSections).orElse(new HashMap<>());
                 if (!checkedSections.containsKey(sectionId)) {
                     SectionDTO section = SectionDTO.builder()
                             .id((Long) rs.getObject("checked_sections_section_id"))
@@ -73,9 +73,12 @@ public class UserWithCreatedAndCheckedSectionsExtractor implements ResultSetExtr
                     checkedSections.put(sectionId, checkedSection);
                 }
             }
-        } else {
-            if (user != null) {
+        }
+        if (user != null) {
+            if (createdAdverts != null) {
                 user.setCreatedAdverts(new ArrayList<>(createdAdverts.values()));
+            }
+            if (checkedSections != null) {
                 user.setCheckedSetions(new ArrayList<>(checkedSections.values()));
             }
         }
