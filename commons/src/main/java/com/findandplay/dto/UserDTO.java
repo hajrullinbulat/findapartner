@@ -40,7 +40,7 @@ public class UserDTO {
 
     private List<SpaceDTO> createdSpaces;
 
-    private List<CheckedAdvertByUserDTO> checkedAdverts;
+    private List<AdvertDTO> checkedAdverts;
 
-    private List<CheckedSectionByUserDTO> checkedSetions;
+    private List<SectionDTO> checkedSetions;
 }

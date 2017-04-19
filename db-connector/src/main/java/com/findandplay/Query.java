@@ -13,7 +13,7 @@ public interface Query {
            "  ca.status            AS status_of_checked_advert,\n" +
            "  ch_a.name            AS user_name_from_my_adverts,\n" +
            "  --   sec.info, s2.name, cs.user_id, ch_s.name,\n" +
-           "--   me_ch_sec.id         AS me_checked_sections_id,\n" +
+           "  me_ch_sec.id         AS me_checked_sections_id,\n" +
            "  me_ch_sec.section_id AS checked_sections_section_id,\n" +
            "  sec2.info            AS checked_sections_section_info,\n" +
            "  ch_sec.id            AS checked_sections_id,\n" +

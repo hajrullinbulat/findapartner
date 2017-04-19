@@ -13,7 +13,8 @@ import java.util.*;
 public class UserWithCreatedAndCheckedSectionsExtractor implements ResultSetExtractor<UserDTO> {
     private Map<Long, AdvertDTO> createdAdverts;
     private Map<Long, CheckedAdvertByUserDTO> checkedMyAdverts;
-    private Map<Long, CheckedSectionByUserDTO> checkedSections;
+    private Map<Long, SectionDTO> checkedSections;
+    private Map<Long, CheckedSectionByUserDTO> checkedSectionsByUsers;
     private UserDTO user;
 
     @Override
@@ -35,7 +36,6 @@ public class UserWithCreatedAndCheckedSectionsExtractor implements ResultSetExtr
                             .sport(SportType.valueOf(rs.getString("sport_name"))).build();
                     createdAdverts.put(advertId, advert);
                 }
-
                 Long checkedAdvertsId = (Long) rs.getObject("my_adverts_id");
                 if (checkedAdvertsId != null) {
                     checkedMyAdverts = Optional.ofNullable(checkedMyAdverts).orElse(new HashMap<>());
@@ -56,24 +56,36 @@ public class UserWithCreatedAndCheckedSectionsExtractor implements ResultSetExtr
                     }
                 }
             }
-            Long sectionId = (Long) rs.getObject("checked_sections_id");
+            Long sectionId = (Long) rs.getObject("me_checked_sections_id");
             if (sectionId != null) {
                 checkedSections = Optional.ofNullable(checkedSections).orElse(new HashMap<>());
                 if (!checkedSections.containsKey(sectionId)) {
                     SectionDTO section = SectionDTO.builder()
-                            .id((Long) rs.getObject("checked_sections_section_id"))
-                            .info(rs.getString("checked_sections_section_info")).build();
-                    UserDTO user = UserDTO.builder()
-                            .id((Long) rs.getObject("checked_sections_user_id"))
-                            .name(rs.getString("checked_sections_user_name")).build();
-                    CheckedSectionByUserDTO checkedSection = CheckedSectionByUserDTO.builder()
                             .id(sectionId)
-                            .section(section)
-                            .user(user).build();
-                    checkedSections.put(sectionId, checkedSection);
+                            .info(rs.getString("checked_sections_section_info")).build();
+                    checkedSections.put(sectionId, section);
+                }
+                Long checkedSectionsId = (Long) rs.getObject("checked_sections_id");
+                if (checkedSectionsId != null) {
+                    checkedSectionsByUsers = Optional.ofNullable(checkedSectionsByUsers).orElse(new HashMap<>());
+                    if (!checkedSectionsByUsers.containsKey(checkedSectionsId)) {
+                        UserDTO user = UserDTO.builder()
+                                .id((Long) rs.getObject("checked_sections_user_id"))
+                                .name(rs.getString("checked_sections_user_name")).build();
+                        CheckedSectionByUserDTO checkedSection = CheckedSectionByUserDTO.builder()
+                                .id(sectionId)
+                                .user(user).build();
+                        checkedSectionsByUsers.put(checkedSectionsId, checkedSection);
+
+                        SectionDTO sectionDTO = checkedSections.get(sectionId);
+                        List<CheckedSectionByUserDTO> sectionCheckedUsers = Optional.ofNullable(sectionDTO.getUsers()).orElse(new ArrayList<>());
+                        sectionCheckedUsers.add(checkedSection);
+                        sectionDTO.setUsers(sectionCheckedUsers);
+                    }
                 }
             }
         }
+
         if (user != null) {
             if (createdAdverts != null) {
                 user.setCreatedAdverts(new ArrayList<>(createdAdverts.values()));
