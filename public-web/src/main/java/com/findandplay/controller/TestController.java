@@ -75,7 +75,7 @@ public class TestController {
     @GetMapping("/get")
     @ResponseBody
     public ResponseEntity get() {
-        UserEntity one = userRepository.findOne(73L);
+        UserEntity one = userRepository.findByMsisdn("79991697612");
         return ResponseEntity.ok(one);
     }
 

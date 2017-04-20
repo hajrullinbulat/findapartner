@@ -13,19 +13,19 @@ import java.util.Collection;
 import java.util.Optional;
 
 @Service
-public class CustomUserDetailsService implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final UserRepository userRepository;
 
     @Autowired
-    public CustomUserDetailsService(UserRepository userRepository) {
+    public UserDetailsServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
     @Override
     public UserDetails loadUserByUsername(String msisdn) throws UsernameNotFoundException {
         UserEntity user = Optional.ofNullable(userRepository.findByMsisdn(msisdn))
-                .orElseThrow(() -> new UsernameNotFoundException(String.format("User %s does not exist!", msisdn)));
+                .orElseThrow(() -> new UsernameNotFoundException(String.format("User with msisdn %s does not exist!", msisdn)));
         return new UserRepositoryUserDetails(user);
     }
 
@@ -44,21 +44,33 @@ public class CustomUserDetailsService implements UserDetailsService {
             return getMsisdn();
         }
 
+        /**
+         * @return флаг, что срок действия аккаунта еще не истек, он активен
+         */
         @Override
         public boolean isAccountNonExpired() {
             return true;
         }
 
+        /**
+         * @return флаг, что пользователь не заблокирован администраторами сайта
+         */
         @Override
         public boolean isAccountNonLocked() {
             return true;
         }
 
+        /**
+         * @return флаг, что срок действия пароля еще не истек, он активен
+         */
         @Override
         public boolean isCredentialsNonExpired() {
             return true;
         }
 
+        /**
+         * @return флаг, что пользователь включен и подтвержден
+         */
         @Override
         public boolean isEnabled() {
             return isConfirmed();
