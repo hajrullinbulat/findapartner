@@ -1,17 +1,5 @@
 server:
   port: 8080
-security:
-#  basic:
-#    enabled: false
-  oauth2:
-    client:
-      client-id: clientapp
-      client-secret: 123456
-      authorized-grant-types: password, refresh_token
-      authorities: USER
-      scope: read,write
-      resource-ids: restservice
-      access-token-validity-seconds: 1800
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
