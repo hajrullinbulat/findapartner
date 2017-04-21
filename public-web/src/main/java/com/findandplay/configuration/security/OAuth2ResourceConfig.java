@@ -42,9 +42,9 @@ public class OAuth2ResourceConfig extends ResourceServerConfigurerAdapter {
                 .exceptionHandling().accessDeniedHandler(accessDeniedHandler())
                 .and()
                 .authorizeRequests()
-                .antMatchers("/get2").hasRole("USER")
+                .antMatchers("/get2").authenticated()
+                .antMatchers("/get").authenticated()
                 .antMatchers("/admin").hasRole("ADMIN")
-                .antMatchers("/auth").authenticated()
                 .antMatchers("/user").hasRole("USER")
         ;
     }

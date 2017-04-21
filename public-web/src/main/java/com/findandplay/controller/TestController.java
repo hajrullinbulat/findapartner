@@ -1,19 +1,21 @@
 package com.findandplay.controller;
 
 import com.cosium.spring.data.jpa.entity.graph.domain.EntityGraphUtils;
+import com.findandplay.dto.PrincipalUser;
 import com.findandplay.dto.UserDTO;
 import com.findandplay.entity.AdvertEntity;
 import com.findandplay.entity.RoleEntity;
 import com.findandplay.entity.SportEntity;
 import com.findandplay.entity.UserEntity;
 import com.findandplay.enums.*;
+import com.findandplay.jdbcRepository.UserJDBCRepository;
 import com.findandplay.jpaRepository.AdvertRepository;
 import com.findandplay.jpaRepository.CheckedAdverts;
-import com.findandplay.jdbcRepository.UserJDBCRepository;
 import com.findandplay.jpaRepository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -94,8 +96,8 @@ public class TestController {
 
     @GetMapping("/get2")
     @ResponseBody
-    public ResponseEntity get2() {
-        UserDTO userWithCreatedAndCheckedSections = userJDBCRepository.getUserWithCreatedAndCheckedSections("79991697612");
-        return ResponseEntity.ok(userWithCreatedAndCheckedSections);
+    public ResponseEntity get2(@AuthenticationPrincipal PrincipalUser user) {
+        UserDTO userWithCreatedAndCheckedSections = userJDBCRepository.getUserWithCreatedAndCheckedSections(user.getMsisdn());
+        return ResponseEntity.ok(user.getMsisdn());
     }
 }

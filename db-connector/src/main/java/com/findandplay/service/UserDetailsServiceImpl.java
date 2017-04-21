@@ -1,16 +1,18 @@
 package com.findandplay.service;
 
+import com.findandplay.dto.ImageDTO;
+import com.findandplay.dto.PrincipalUser;
 import com.findandplay.entity.UserEntity;
 import com.findandplay.jpaRepository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -24,56 +26,35 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String msisdn) throws UsernameNotFoundException {
-        UserEntity user = Optional.ofNullable(userRepository.findByMsisdn(msisdn))
+        UserEntity dbUser = userRepository.findByMsisdn(msisdn);
+        Optional.ofNullable(dbUser)
                 .orElseThrow(() -> new UsernameNotFoundException(String.format("User with msisdn %s does not exist!", msisdn)));
-        return new UserRepositoryUserDetails(user);
+        return PrincipalUser.builder()
+                .name(dbUser.getName())
+                .surname(dbUser.getSurname())
+                .email(dbUser.getEmail())
+                .msisdn(dbUser.getMsisdn())
+                .pass(dbUser.getPassword())
+                .confirmed(dbUser.isConfirmed())
+                .key(dbUser.getKey())
+                .created(dbUser.getCreated())
+                .lastAction(dbUser.getLastAction())
+                .city(dbUser.getCity())
+                .roles(
+                        dbUser.getRoles().stream()
+                                .map(role -> new SimpleGrantedAuthority(role.getAuthority()))
+                                .collect(Collectors.toSet())
+                )
+                .avatar(Optional.ofNullable(dbUser.getAvatar())
+                        .map(avatar ->
+                                ImageDTO.builder()
+                                        .low(avatar.getLow())
+                                        .medium(avatar.getMedium())
+                                        .high(avatar.getHigh())
+                                        .build())
+                        .orElse(ImageDTO.empty()))
+                .build();
+
     }
 
-    private final static class UserRepositoryUserDetails extends UserEntity implements UserDetails {
-        private UserRepositoryUserDetails(UserEntity user) {
-            super(user);
-        }
-
-        @Override
-        public Collection<? extends GrantedAuthority> getAuthorities() {
-            return getRoles();
-        }
-
-        @Override
-        public String getUsername() {
-            return getMsisdn();
-        }
-
-        /**
-         * @return флаг, что срок действия аккаунта еще не истек, он активен
-         */
-        @Override
-        public boolean isAccountNonExpired() {
-            return true;
-        }
-
-        /**
-         * @return флаг, что пользователь не заблокирован администраторами сайта
-         */
-        @Override
-        public boolean isAccountNonLocked() {
-            return true;
-        }
-
-        /**
-         * @return флаг, что срок действия пароля еще не истек, он активен
-         */
-        @Override
-        public boolean isCredentialsNonExpired() {
-            return true;
-        }
-
-        /**
-         * @return флаг, что пользователь включен и подтвержден
-         */
-        @Override
-        public boolean isEnabled() {
-            return isConfirmed();
-        }
-    }
 }

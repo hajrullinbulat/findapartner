@@ -15,7 +15,7 @@ import java.util.Set;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Table(name = "users")
-@Builder(toBuilder = true)
+@Builder
 @NamedEntityGraphs(
         @NamedEntityGraph(
                 name = "User.default",
@@ -43,7 +43,7 @@ public class UserEntity extends BaseEntity {
     @JoinTable(name = "user_role",
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
-    private Set<RoleEntity> roles = new HashSet<RoleEntity>();
+    private Set<RoleEntity> roles = new HashSet<>();
 
     @OneToMany(
             mappedBy = "user",
@@ -72,8 +72,4 @@ public class UserEntity extends BaseEntity {
             cascade = {CascadeType.ALL}
     )
     private List<SpaceEntity> createdSpaces;
-
-    public UserEntity(UserEntity user) {
-        user.toBuilder().build();
-    }
 }
