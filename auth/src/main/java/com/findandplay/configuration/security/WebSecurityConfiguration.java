@@ -24,7 +24,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         this.userDetailsService = userDetailsService;
     }
 
-
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth

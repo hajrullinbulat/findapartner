@@ -5,14 +5,14 @@ spring:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/findandplay
     username: postgres
-    password: postgres
+    password:
     platform: postgres
   jdbc_datasource:
       type: com.zaxxer.hikari.HikariDataSource
       driver-class-name: org.postgresql.Driver
       url: jdbc:postgresql://localhost:5432/findandplay
       username: postgres
-      password: postgres
+      password:
       platform: postgres
       hikari:
         idle-timeout: 10000

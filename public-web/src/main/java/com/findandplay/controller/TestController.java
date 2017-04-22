@@ -87,7 +87,6 @@ public class TestController {
         AdvertEntity one = advertRepository.findAdvertById(74L, EntityGraphUtils.fromName("getAdvert"));
 //        UserEntity one1 = userRepository.findOne(79L);
 //
-//
 //        CheckedAdvertByUserEntity checkedAdvertByUserEntity = new CheckedAdvertByUserEntity(one1, one, LocalDateTime.now(), CheckStatus.WAITING);
 //        checkedAdverts.save(checkedAdvertByUserEntity);
 
@@ -98,6 +97,6 @@ public class TestController {
     @ResponseBody
     public ResponseEntity get2(@AuthenticationPrincipal PrincipalUser user) {
         UserDTO userWithCreatedAndCheckedSections = userJDBCRepository.getUserWithCreatedAndCheckedSections(user.getMsisdn());
-        return ResponseEntity.ok(user.getMsisdn());
+        return ResponseEntity.ok(userWithCreatedAndCheckedSections);
     }
 }
