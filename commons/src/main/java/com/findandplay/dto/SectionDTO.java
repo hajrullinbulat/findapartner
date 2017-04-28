@@ -16,14 +16,20 @@ import java.util.List;
 @Builder
 public class SectionDTO{
     private Long id;
+
     private LocalDateTime created;
+
+    private LocalDateTime lastActionDate;
+
     private AdStatus status;
+
     private String address;
+
     private String info;
 
     private UserDTO author;
 
     private SportType sport;
 
-    private List<CheckedSectionByUserDTO> users;
+    private List<CheckedSectionByUserDTO> checkedUsers;
 }

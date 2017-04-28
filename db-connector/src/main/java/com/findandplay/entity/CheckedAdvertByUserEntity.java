@@ -35,9 +35,13 @@ public class CheckedAdvertByUserEntity extends BaseEntity {
     private UserEntity user;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "advert_id")
     private AdvertEntity advert;
 
+    @Column(name = "checked_adverts_date")
     private LocalDateTime checked;
+
+    @Column(name = "checked_adverts_status")
     @Enumerated(EnumType.STRING)
     private CheckStatus status;
 

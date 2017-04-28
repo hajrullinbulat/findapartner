@@ -50,9 +50,9 @@ public class UserWithCreatedAndCheckedSectionsExtractor implements ResultSetExtr
                         checkedMyAdverts.put(checkedAdvertsId, checkedAdvert);
 
                         AdvertDTO advertDTO = createdAdverts.get(advertId);
-                        List<CheckedAdvertByUserDTO> checkedUsers = Optional.ofNullable(advertDTO.getUsers()).orElse(new ArrayList<>());
+                        List<CheckedAdvertByUserDTO> checkedUsers = Optional.ofNullable(advertDTO.getCheckedUsers()).orElse(new ArrayList<>());
                         checkedUsers.add(checkedAdvert);
-                        advertDTO.setUsers(checkedUsers);
+                        advertDTO.setCheckedUsers(checkedUsers);
                     }
                 }
             }
@@ -78,9 +78,9 @@ public class UserWithCreatedAndCheckedSectionsExtractor implements ResultSetExtr
                         checkedSectionsByUsers.put(checkedSectionsId, checkedSection);
 
                         SectionDTO sectionDTO = checkedSections.get(sectionId);
-                        List<CheckedSectionByUserDTO> sectionCheckedUsers = Optional.ofNullable(sectionDTO.getUsers()).orElse(new ArrayList<>());
+                        List<CheckedSectionByUserDTO> sectionCheckedUsers = Optional.ofNullable(sectionDTO.getCheckedUsers()).orElse(new ArrayList<>());
                         sectionCheckedUsers.add(checkedSection);
-                        sectionDTO.setUsers(sectionCheckedUsers);
+                        sectionDTO.setCheckedUsers(sectionCheckedUsers);
                     }
                 }
             }

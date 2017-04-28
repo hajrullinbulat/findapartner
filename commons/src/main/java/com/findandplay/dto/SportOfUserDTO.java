@@ -13,7 +13,10 @@ import lombok.NoArgsConstructor;
 @Builder
 public class SportOfUserDTO {
     private Long id;
+
     private UserDTO user;
+
     private SportType sport;
+
     private Skill level;
 }

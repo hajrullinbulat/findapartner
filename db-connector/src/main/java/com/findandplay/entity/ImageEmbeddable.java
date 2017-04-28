@@ -14,8 +14,10 @@ import javax.persistence.Embeddable;
 public class ImageEmbeddable {
     @Column(name = "avatar_low")
     private String low;
+
     @Column(name = "avatar_medium")
     private String medium;
+
     @Column(name = "avatar_high")
     private String high;
 }

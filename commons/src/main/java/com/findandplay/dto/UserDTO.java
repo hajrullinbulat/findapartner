@@ -17,15 +17,25 @@ import java.util.Set;
 @Builder
 public class UserDTO {
     private Long id;
+
     private String name;
+
     private String surname;
+
     private String email;
+
     private String msisdn;
+
     private String password;
+
     private boolean confirmed;
+
     private String key;
+
     private LocalDateTime created;
+
     private LocalDateTime lastAction;
+
     private City city;
 
     private ImageDTO avatar;

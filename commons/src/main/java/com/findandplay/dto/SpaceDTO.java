@@ -17,9 +17,15 @@ import java.util.Set;
 @Builder
 public class SpaceDTO {
     private Long id;
+
     private LocalDateTime created;
+
+    private LocalDateTime lastActionDate;
+
     private AdStatus status;
+
     private String address;
+
     private String info;
 
     private UserDTO author;

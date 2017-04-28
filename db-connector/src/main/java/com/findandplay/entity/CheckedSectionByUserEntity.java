@@ -21,9 +21,13 @@ public class CheckedSectionByUserEntity extends BaseEntity {
     private UserEntity user;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "section_id")
     private SectionEntity section;
 
+    @Column(name = "checked_sections_date")
     private LocalDateTime checked;
+
+    @Column(name = "checked_sections_status")
     @Enumerated(EnumType.STRING)
     private CheckStatus status;
 }

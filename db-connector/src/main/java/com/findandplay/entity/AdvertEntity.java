@@ -31,20 +31,32 @@ import java.util.List;
         )
 })
 public class AdvertEntity extends BaseEntity {
+    @Column(name = "advert_created")
     private LocalDateTime created;
+
+    @Column(name = "advert_last_action")
+    private LocalDateTime lastActionDate;
+
+    @Column(name = "advert_status")
     @Enumerated(EnumType.STRING)
     private AdStatus status;
+
+    @Column(name = "advert_min_level")
     @Enumerated(EnumType.STRING)
-    private Skill level; //min level //todo подумать про max level
-    private Integer count;
+    private Skill minLevel; //min level //todo подумать про max level
+
+    @Column(name = "advert_persons_count")
+    private Integer personsCount;
+
+    @Column(name = "advert_info")
     private String info;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "author_id")
+    @JoinColumn(name = "advert_author_id")
     private UserEntity author;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "sport_id")
+    @JoinColumn(name = "advert_sport_id")
     private SportEntity sport;
 
     @OneToMany(

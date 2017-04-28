@@ -14,15 +14,22 @@ import java.util.List;
 @Builder
 public class AdvertDTO {
     private Long id;
+
     private LocalDateTime created;
+
+    private LocalDateTime lastActionDate;
+
     private AdStatus status;
-    private Skill level; //min level //todo подумать про max level
-    private Integer count;
+
+    private Skill minLevel; //min level //todo подумать про max level
+
+    private Integer personsCount;
+
     private String info;
 
     private UserDTO author;
 
     private SportType sport;
 
-    private List<CheckedAdvertByUserDTO> users;
+    private List<CheckedAdvertByUserDTO> checkedUsers;
 }

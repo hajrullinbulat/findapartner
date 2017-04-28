@@ -62,10 +62,10 @@ public class TestController {
 
         SportEntity sport = SportEntity.builder().name(SportType.FOOTBALL).build();
         AdvertEntity advert = AdvertEntity.builder()
-                .count(1)
+                .personsCount(1)
                 .created(LocalDateTime.now())
                 .info("Some text about")
-                .level(Skill.NEW)
+                .minLevel(Skill.NEW)
                 .status(AdStatus.OPEN)
                 .author(user)
                 .sport(sport).build();

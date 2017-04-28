@@ -25,17 +25,32 @@ import java.util.Set;
         )
 )
 public class UserEntity extends BaseEntity {
+    @Column(name = "user_name")
     private String name;
+
+    @Column(name = "user_surname")
     private String surname;
+
     private String email;
+
     private String msisdn;
+
     private String password;
+
     private boolean confirmed;
+
+    @Column(name = "verification_key")
     private String key;
+
+    @Column(name = "user_created")
     private LocalDateTime created;
+
+    @Column(name = "user_last_action")
     private LocalDateTime lastAction;
+
     @Enumerated(EnumType.STRING)
     private City city;
+
     @Embedded
     private ImageEmbeddable avatar;
 

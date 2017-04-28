@@ -17,17 +17,28 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @Table(name = "sections")
 public class SectionEntity extends BaseEntity {
+    @Column(name = "section_created")
     private LocalDateTime created;
+
+    @Column(name = "section_last_action")
+    private LocalDateTime lastActionDate;
+
     @Enumerated(EnumType.STRING)
+    @Column(name = "section_status")
     private AdStatus status;
+
+    @Column(name = "section_address")
     private String address;
+
+    @Column(name = "section_info")
     private String info;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "section_author_id")
     private UserEntity author;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "sport_id")
+    @JoinColumn(name = "section_sport_id")
     private SportEntity sport;
 
     @OneToMany(

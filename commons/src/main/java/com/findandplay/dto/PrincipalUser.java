@@ -20,15 +20,25 @@ import java.util.Set;
 @Builder
 public class PrincipalUser implements UserDetails {
     private String name;
+
     private String surname;
+
     private String email;
+
     private String msisdn;
+
     private String pass;
+
     private boolean confirmed;
+
     private String key;
+
     private LocalDateTime created;
+
     private LocalDateTime lastAction;
+
     private City city;
+
     private ImageDTO avatar;
 
     private Set<SimpleGrantedAuthority> roles = new HashSet<>();

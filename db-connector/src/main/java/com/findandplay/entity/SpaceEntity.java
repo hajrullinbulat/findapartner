@@ -18,13 +18,24 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper = true)
 @Table(name = "spaces")
 public class SpaceEntity extends BaseEntity {
+    @Column(name = "space_created")
     private LocalDateTime created;
+
+    @Column(name = "space_last_action")
+    private LocalDateTime lastActionDate;
+
     @Enumerated(EnumType.STRING)
+    @Column(name = "space_status")
     private AdStatus status;
+
+    @Column(name = "space_address")
     private String address;
+
+    @Column(name = "space_info")
     private String info;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "space_author_id")
     private UserEntity author;
 
     @ManyToMany

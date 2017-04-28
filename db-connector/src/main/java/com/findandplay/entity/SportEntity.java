@@ -3,10 +3,7 @@ package com.findandplay.entity;
 import com.findandplay.enums.SportType;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Data
@@ -16,6 +13,7 @@ import javax.persistence.Table;
 @Table(name = "sports")
 @Builder
 public class SportEntity extends BaseEntity {
+    @Column(name = "sport_name")
     @Enumerated(EnumType.STRING)
     private SportType name;
 }
