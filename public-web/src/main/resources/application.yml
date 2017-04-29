@@ -1,3 +1,9 @@
+#mine
+password:
+  strength: 4
+oauth2:
+  resourceId: restservice
+#app
 server:
   port: 8080
 spring:

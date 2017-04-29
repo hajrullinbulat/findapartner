@@ -1,6 +1,7 @@
 package com.findandplay.configuration.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,12 +17,16 @@ import javax.sql.DataSource;
 @Configuration
 @EnableResourceServer
 public class OAuth2ResourceConfig extends ResourceServerConfigurerAdapter {
-    private static final String RESOURCE_ID = "restservice";
+    private final String resourceId;
 
     private final DataSource dataSource;
 
     @Autowired
-    public OAuth2ResourceConfig(DataSource dataSource) {
+    public OAuth2ResourceConfig(
+            @Value("${oauth2.resourceId}") String resourceId,
+            DataSource dataSource
+    ) {
+        this.resourceId = resourceId;
         this.dataSource = dataSource;
     }
 
@@ -29,23 +34,23 @@ public class OAuth2ResourceConfig extends ResourceServerConfigurerAdapter {
     public void configure(ResourceServerSecurityConfigurer resources) {
         resources
                 .tokenStore(new JdbcTokenStore(dataSource))
-                .resourceId(RESOURCE_ID);
+                .resourceId(resourceId);
     }
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
-
         http
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER)
                 .and()
                 .exceptionHandling().accessDeniedHandler(accessDeniedHandler())
                 .and()
                 .authorizeRequests()
-                .antMatchers("/get2").authenticated()
+                .antMatchers("/get2").permitAll()
                 .antMatchers("/get").authenticated()
                 .antMatchers("/admin").hasRole("ADMIN")
                 .antMatchers("/user").hasRole("USER")
+                .antMatchers("/signup").permitAll()
         ;
     }
 

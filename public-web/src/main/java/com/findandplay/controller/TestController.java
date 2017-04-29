@@ -5,15 +5,15 @@ import com.findandplay.dto.PrincipalUser;
 import com.findandplay.dto.UserDTO;
 import com.findandplay.entity.AdvertEntity;
 import com.findandplay.entity.RoleEntity;
-import com.findandplay.entity.SportEntity;
 import com.findandplay.entity.UserEntity;
-import com.findandplay.enums.*;
+import com.findandplay.enums.City;
+import com.findandplay.enums.RoleTypes;
 import com.findandplay.jdbcRepository.UserJDBCRepository;
 import com.findandplay.jpaRepository.AdvertRepository;
 import com.findandplay.jpaRepository.CheckedAdverts;
 import com.findandplay.jpaRepository.UserRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -29,12 +29,26 @@ import java.util.Set;
  * Created by hajrullinbulat on 11.03.17.
  */
 @Controller
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class TestController {
     private final UserRepository userRepository;
     private final AdvertRepository advertRepository;
     private final CheckedAdverts checkedAdverts;
     private final UserJDBCRepository userJDBCRepository;
+    private final Integer passStrong;
+
+    @Autowired
+    public TestController(
+            UserRepository userRepository,
+            AdvertRepository advertRepository,
+            CheckedAdverts checkedAdverts,
+            UserJDBCRepository userJDBCRepository,
+            @Value("${password.strong}") Integer passStrong) {
+        this.userRepository = userRepository;
+        this.advertRepository = advertRepository;
+        this.checkedAdverts = checkedAdverts;
+        this.userJDBCRepository = userJDBCRepository;
+        this.passStrong = passStrong;
+    }
 
     @GetMapping("/")
     @ResponseBody
@@ -56,20 +70,20 @@ public class TestController {
                 .msisdn("79991697612")
                 .city(City.KAZAN)
                 .confirmed(true)
-                .password(new BCryptPasswordEncoder(4).encode("Qwerty"))
+                .password(new BCryptPasswordEncoder(passStrong).encode("Qwerty"))
                 .roles(roles).build();
         userRepository.save(user);
 
-        SportEntity sport = SportEntity.builder().name(SportType.FOOTBALL).build();
-        AdvertEntity advert = AdvertEntity.builder()
-                .personsCount(1)
-                .created(LocalDateTime.now())
-                .info("Some text about")
-                .minLevel(Skill.NEW)
-                .status(AdStatus.OPEN)
-                .author(user)
-                .sport(sport).build();
-        advertRepository.save(advert);
+//        SportEntity sport = SportEntity.builder().name(SportType.FOOTBALL).build();
+//        AdvertEntity advert = AdvertEntity.builder()
+//                .personsCount(1)
+//                .created(LocalDateTime.now())
+//                .info("Some text about")
+//                .minLevel(Skill.NEW)
+//                .status(AdStatus.OPEN)
+//                .author(user)
+//                .sport(sport).build();
+//        advertRepository.save(advert);
 
         return ResponseEntity.ok("ok");
     }
@@ -99,4 +113,6 @@ public class TestController {
         UserDTO userWithCreatedAndCheckedSections = userJDBCRepository.getUserWithCreatedAndCheckedSections(user.getMsisdn());
         return ResponseEntity.ok(userWithCreatedAndCheckedSections);
     }
+
+
 }

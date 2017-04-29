@@ -3,6 +3,7 @@ package com.findandplay.configuration.security;
 import com.findandplay.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,15 +23,26 @@ import javax.sql.DataSource;
 @EnableAuthorizationServer
 public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
 
-    @Autowired
-    private DataSource dataSource;
+    private final DataSource dataSource;
+
+    private final AuthenticationManager authenticationManager;
+
+    private final UserDetailsServiceImpl userDetailsService;
+
+    private final int passStrength;
 
     @Autowired
-    @Qualifier("authenticationManagerBean")
-    private AuthenticationManager authenticationManager;
-
-    @Autowired
-    private UserDetailsServiceImpl userDetailsService;
+    public OAuth2Config(
+            DataSource dataSource,
+            @Qualifier("authenticationManagerBean") AuthenticationManager authenticationManager,
+            UserDetailsServiceImpl userDetailsService,
+            @Value("${password.strength}") int passStrength
+    ) {
+        this.dataSource = dataSource;
+        this.authenticationManager = authenticationManager;
+        this.userDetailsService = userDetailsService;
+        this.passStrength = passStrength;
+    }
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
@@ -39,6 +51,13 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
                 .authenticationManager(this.authenticationManager)
                 .authorizationCodeServices(authorizationCodeServices())
                 .userDetailsService(userDetailsService);
+    }
+
+    @Override
+    public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+        clients
+                .jdbc(dataSource)
+                .passwordEncoder(passwordEncoder());
     }
 
     @Bean
@@ -51,15 +70,8 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
         return new JdbcAuthorizationCodeServices(dataSource);
     }
 
-    @Override
-    public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients
-                .jdbc(dataSource)
-                .passwordEncoder(passwordEncoder());
-    }
-
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(4);
+        return new BCryptPasswordEncoder(passStrength);
     }
 }

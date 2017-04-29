@@ -1,7 +1,8 @@
 package com.findandplay.jdbcRepository;
 
-import com.findandplay.Query;
+import com.findandplay.QueryStore;
 import com.findandplay.dto.UserDTO;
+import com.findandplay.resultSetExtractor.UserWithCheckedAdvetsExtractor;
 import com.findandplay.resultSetExtractor.UserWithCreatedAndCheckedSectionsExtractor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -22,6 +23,11 @@ public class UserJDBCRepository {
 
     @Transactional(readOnly = true)
     public UserDTO getUserWithCreatedAndCheckedSections(String msisdn) {
-        return jdbcTemplate.query(Query.test, new UserWithCreatedAndCheckedSectionsExtractor(), msisdn);
+        return jdbcTemplate.query(QueryStore.test, new UserWithCreatedAndCheckedSectionsExtractor(), msisdn);
+    }
+
+    @Transactional(readOnly = true)
+    public UserDTO getUserWithCheckedAdverts(String msisdn) {
+        return jdbcTemplate.query(QueryStore.userWithCheckedAdverts, new UserWithCheckedAdvetsExtractor(), msisdn);
     }
 }
