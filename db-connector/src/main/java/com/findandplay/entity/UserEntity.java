@@ -1,7 +1,11 @@
 package com.findandplay.entity;
 
+import com.findandplay.configuration.UserSportsJsonType;
 import com.findandplay.enums.City;
+import com.findandplay.json.UserSportsJson;
 import lombok.*;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -10,20 +14,13 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
+@Table(name = "users")
+@TypeDef(name = "sports", typeClass = UserSportsJsonType.class)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
-@Table(name = "users")
 @Builder
-@NamedEntityGraphs(
-        @NamedEntityGraph(
-                name = "User.default",
-                attributeNodes = {
-                        @NamedAttributeNode("roles"),
-                }
-        )
-)
+@EqualsAndHashCode(callSuper = true)
 public class UserEntity extends BaseEntity {
     @Column(name = "user_name")
     private String name;
@@ -48,6 +45,10 @@ public class UserEntity extends BaseEntity {
     @Column(name = "user_last_action")
     private LocalDateTime lastAction;
 
+    @Column(name = "user_sports")
+    @Type(type = "sports")
+    private UserSportsJson sports;
+
     @Enumerated(EnumType.STRING)
     private City city;
 
@@ -59,13 +60,6 @@ public class UserEntity extends BaseEntity {
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
     private Set<RoleEntity> roles = new HashSet<>();
-
-    @OneToMany(
-            mappedBy = "user",
-            fetch = FetchType.LAZY,
-            cascade = {CascadeType.ALL}
-    )
-    private List<SportOfUserEntity> sports;
 
     @OneToMany(
             mappedBy = "author",

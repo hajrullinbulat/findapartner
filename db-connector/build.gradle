@@ -10,7 +10,7 @@ dependencies {
     }
     compile('com.zaxxer:HikariCP:2.6.1')
     compile('com.cosium.spring.data:spring-data-jpa-entity-graph:1.11.02')
-    compile('postgresql:postgresql:9.1-901-1.jdbc4')
+    compile('org.postgresql:postgresql:9.4-1206-jdbc42')
 
     compile project(":commons")
 }

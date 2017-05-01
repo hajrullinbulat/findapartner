@@ -1,6 +1,6 @@
-package com.findandplay;
+package com.findandplay.Queries;
 
-public interface QueryStore {
+public interface UserQuery {
     String test = "SELECT\n" +
             "  me.id                     AS me_id,\n" +
             "  me.user_name              AS my_name,\n" +
@@ -36,7 +36,6 @@ public interface QueryStore {
             "WHERE me.msisdn = ?";
 
     String userWithCheckedAdverts = "SELECT\n" +
-            "\n" +
             "  me.id,\n" +
             "  me.user_name,\n" +
             "  adv.id,\n" +

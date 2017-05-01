@@ -2,6 +2,7 @@ package com.findandplay.dto;
 
 import com.findandplay.enums.City;
 import com.findandplay.enums.RoleTypes;
+import com.findandplay.json.UserSportsJson;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -42,7 +43,7 @@ public class UserDTO {
 
     private Set<RoleTypes> roles;
 
-    private List<SportOfUserDTO> sports;
+    private UserSportsJson sports;
 
     private List<AdvertDTO> createdAdverts;
 

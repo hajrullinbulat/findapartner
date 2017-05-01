@@ -4,14 +4,19 @@ import com.cosium.spring.data.jpa.entity.graph.domain.EntityGraphUtils;
 import com.findandplay.dto.PrincipalUser;
 import com.findandplay.dto.UserDTO;
 import com.findandplay.entity.AdvertEntity;
-import com.findandplay.entity.RoleEntity;
+import com.findandplay.entity.SpaceEntity;
 import com.findandplay.entity.UserEntity;
 import com.findandplay.enums.City;
-import com.findandplay.enums.RoleTypes;
+import com.findandplay.enums.Skill;
+import com.findandplay.enums.SportType;
 import com.findandplay.jdbcRepository.UserJDBCRepository;
 import com.findandplay.jpaRepository.AdvertRepository;
 import com.findandplay.jpaRepository.CheckedAdverts;
+import com.findandplay.jpaRepository.SpaceRepository;
 import com.findandplay.jpaRepository.UserRepository;
+import com.findandplay.json.SpaceSportsJson;
+import com.findandplay.json.UserSportJson;
+import com.findandplay.json.UserSportsJson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -22,8 +27,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by hajrullinbulat on 11.03.17.
@@ -32,6 +37,7 @@ import java.util.Set;
 public class TestController {
     private final UserRepository userRepository;
     private final AdvertRepository advertRepository;
+    private final SpaceRepository spaceRepository;
     private final CheckedAdverts checkedAdverts;
     private final UserJDBCRepository userJDBCRepository;
     private final Integer passStrong;
@@ -40,11 +46,14 @@ public class TestController {
     public TestController(
             UserRepository userRepository,
             AdvertRepository advertRepository,
+            SpaceRepository spaceRepository,
             CheckedAdverts checkedAdverts,
             UserJDBCRepository userJDBCRepository,
-            @Value("${password.strong}") Integer passStrong) {
+            @Value("${password.strength}") Integer passStrong
+    ) {
         this.userRepository = userRepository;
         this.advertRepository = advertRepository;
+        this.spaceRepository = spaceRepository;
         this.checkedAdverts = checkedAdverts;
         this.userJDBCRepository = userJDBCRepository;
         this.passStrong = passStrong;
@@ -59,8 +68,15 @@ public class TestController {
     @GetMapping("/signup")
     @ResponseBody
     public ResponseEntity testInit() {
-        Set<RoleEntity> roles = new HashSet<>();
-        roles.add(new RoleEntity(RoleTypes.USER, 1L));
+//        Set<RoleEntity> roles = new HashSet<>();
+//        roles.add(new RoleEntity(RoleTypes.USER, 1L));
+
+        List<UserSportJson> userSportJson = new ArrayList<>();
+        userSportJson.add(new UserSportJson(SportType.FOOTBALL.name(), Skill.PROFESSIONAL));
+        userSportJson.add(new UserSportJson(SportType.FOOTBALL.name(), Skill.NEW));
+        userSportJson.add(new UserSportJson(SportType.FOOTBALL.name(), Skill.AMATEUR));
+
+        UserSportsJson userSportsJson = new UserSportsJson(userSportJson);
 
         UserEntity user = UserEntity.builder()
                 .name("Булат")
@@ -71,21 +87,23 @@ public class TestController {
                 .city(City.KAZAN)
                 .confirmed(true)
                 .password(new BCryptPasswordEncoder(passStrong).encode("Qwerty"))
-                .roles(roles).build();
+                .sports(userSportsJson)
+                .build();
         userRepository.save(user);
+////
+        UserEntity one = userRepository.findOne(73L);
+//
+//        List<SportType> sports = new ArrayList<>();
+//        sports.add(SportType.FOOTBALL);
+//        sports.add(SportType.VOLLEYBALL);
+//        SpaceEntity space = SpaceEntity.builder()
+//                .address("Нурсултана Назарбаева 75")
+//                .sports(new SpaceSportsJson(sports))
+//                .build();
+//
+//        spaceRepository.save(space);
 
-//        SportEntity sport = SportEntity.builder().name(SportType.FOOTBALL).build();
-//        AdvertEntity advert = AdvertEntity.builder()
-//                .personsCount(1)
-//                .created(LocalDateTime.now())
-//                .info("Some text about")
-//                .minLevel(Skill.NEW)
-//                .status(AdStatus.OPEN)
-//                .author(user)
-//                .sport(sport).build();
-//        advertRepository.save(advert);
-
-        return ResponseEntity.ok("ok");
+        return ResponseEntity.ok(one);
     }
 
     @GetMapping("/get")

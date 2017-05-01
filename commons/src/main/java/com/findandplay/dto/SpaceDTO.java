@@ -2,6 +2,7 @@ package com.findandplay.dto;
 
 import com.findandplay.enums.AdStatus;
 import com.findandplay.enums.SportType;
+import com.findandplay.json.SpaceSportsJson;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,5 +31,5 @@ public class SpaceDTO {
 
     private UserDTO author;
 
-    private Set<SportType> sports = new HashSet<>();
+    private SpaceSportsJson sports;
 }

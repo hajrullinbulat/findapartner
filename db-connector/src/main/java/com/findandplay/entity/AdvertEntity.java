@@ -2,6 +2,7 @@ package com.findandplay.entity;
 
 import com.findandplay.enums.AdStatus;
 import com.findandplay.enums.Skill;
+import com.findandplay.enums.SportType;
 import lombok.*;
 
 import javax.persistence.*;
@@ -55,9 +56,9 @@ public class AdvertEntity extends BaseEntity {
     @JoinColumn(name = "advert_author_id")
     private UserEntity author;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "advert_sport_id")
-    private SportEntity sport;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "advert_sport")
+    private SportType sport;
 
     @OneToMany(
             mappedBy = "advert",

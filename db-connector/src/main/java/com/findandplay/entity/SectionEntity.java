@@ -1,6 +1,7 @@
 package com.findandplay.entity;
 
 import com.findandplay.enums.AdStatus;
+import com.findandplay.enums.SportType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -37,9 +38,9 @@ public class SectionEntity extends BaseEntity {
     @JoinColumn(name = "section_author_id")
     private UserEntity author;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "section_sport_id")
-    private SportEntity sport;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "section_sport")
+    private SportType sport;
 
     @OneToMany(
             mappedBy = "section",

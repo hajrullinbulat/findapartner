@@ -1,10 +1,11 @@
 package com.findandplay.entity;
 
+import com.findandplay.configuration.UserSportsJsonType;
 import com.findandplay.enums.AdStatus;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import com.findandplay.json.SpaceSportsJson;
+import lombok.*;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -12,11 +13,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@TypeDef(name = "sports", typeClass = SpaceSportsJson.class)
+@Table(name = "spaces")
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-@Table(name = "spaces")
 public class SpaceEntity extends BaseEntity {
     @Column(name = "space_created")
     private LocalDateTime created;
@@ -38,9 +41,6 @@ public class SpaceEntity extends BaseEntity {
     @JoinColumn(name = "space_author_id")
     private UserEntity author;
 
-    @ManyToMany
-    @JoinTable(name = "space_sports",
-            joinColumns = {@JoinColumn(name = "space_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "sport_id", referencedColumnName = "id")})
-    private Set<SportEntity> sports = new HashSet<>();
+    @Type(type = "sports")
+    private SpaceSportsJson sports;
 }

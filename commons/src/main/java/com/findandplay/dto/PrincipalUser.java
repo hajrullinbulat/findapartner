@@ -1,6 +1,7 @@
 package com.findandplay.dto;
 
 import com.findandplay.enums.City;
+import com.findandplay.json.UserSportsJson;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -41,8 +42,10 @@ public class PrincipalUser implements UserDetails {
 
     private ImageDTO avatar;
 
+    private UserSportsJson sports;
+
     private Set<SimpleGrantedAuthority> roles = new HashSet<>();
-    
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.getRoles();

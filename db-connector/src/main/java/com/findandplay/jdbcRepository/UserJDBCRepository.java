@@ -1,6 +1,6 @@
 package com.findandplay.jdbcRepository;
 
-import com.findandplay.QueryStore;
+import com.findandplay.Queries.UserQuery;
 import com.findandplay.dto.UserDTO;
 import com.findandplay.resultSetExtractor.UserWithCheckedAdvetsExtractor;
 import com.findandplay.resultSetExtractor.UserWithCreatedAndCheckedSectionsExtractor;
@@ -23,11 +23,11 @@ public class UserJDBCRepository {
 
     @Transactional(readOnly = true)
     public UserDTO getUserWithCreatedAndCheckedSections(String msisdn) {
-        return jdbcTemplate.query(QueryStore.test, new UserWithCreatedAndCheckedSectionsExtractor(), msisdn);
+        return jdbcTemplate.query(UserQuery.test, new UserWithCreatedAndCheckedSectionsExtractor(), msisdn);
     }
 
     @Transactional(readOnly = true)
     public UserDTO getUserWithCheckedAdverts(String msisdn) {
-        return jdbcTemplate.query(QueryStore.userWithCheckedAdverts, new UserWithCheckedAdvetsExtractor(), msisdn);
+        return jdbcTemplate.query(UserQuery.userWithCheckedAdverts, new UserWithCheckedAdvetsExtractor(), msisdn);
     }
 }
