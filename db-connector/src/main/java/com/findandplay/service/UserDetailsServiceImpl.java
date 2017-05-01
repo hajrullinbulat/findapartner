@@ -24,6 +24,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
+    //todo делегировать
     @Override
     public UserDetails loadUserByUsername(String msisdn) throws UsernameNotFoundException {
         UserEntity dbUser = userRepository.findByMsisdn(msisdn);
@@ -40,6 +41,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .created(dbUser.getCreated())
                 .lastAction(dbUser.getLastAction())
                 .city(dbUser.getCity())
+                .sports(dbUser.getSports())
                 .roles(
                         dbUser.getRoles().stream()
                                 .map(role -> new SimpleGrantedAuthority(role.getAuthority()))

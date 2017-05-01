@@ -18,21 +18,4 @@ public class UserService {
         this.advertRepository = advertRepository;
         this.checkedAdvertsRepository = checkedAdvertsRepository;
     }
-
-//    public UserDTO getUserByMsisdnWithCreated(String msisdn) {
-//        checkedAdvertsRepository.save()
-//        UserEntity user = userRepository.findByMsisdn(msisdn);
-//        List<AdvertEntity> advertsByAuthor = advertRepository.findAdvertsByAuthor(user, EntityGraphUtils.fromName("Advert.sport"));
-//        checkedAdvertsRepository.findOne()
-//
-//        advertsByAuthor.stream().map(advertEntity -> {
-//            return AdvertDTO.builder().count(advertEntity.getCount())
-//                    .sport(advertEntity.getSport().getName())
-//                    .
-//        })
-//
-//        UserDTO.builder()
-//                .msisdn(user.getMsisdn())
-//                .createdAdverts()
-//    }
 }
