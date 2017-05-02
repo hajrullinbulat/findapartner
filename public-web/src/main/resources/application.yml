@@ -1,7 +1,7 @@
 #mine
 pagination:
   adverts:
-    limit: 20
+    limit: 10
 password:
   strength: 4
 oauth2:

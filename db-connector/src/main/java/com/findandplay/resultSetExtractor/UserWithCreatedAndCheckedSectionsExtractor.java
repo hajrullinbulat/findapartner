@@ -17,6 +17,8 @@ public class UserWithCreatedAndCheckedSectionsExtractor implements ResultSetExtr
     private Map<Long, CheckedSectionByUserDTO> checkedSectionsByUsers;
     private UserDTO user;
 
+
+    //todo переделать под checked
     @Override
     public UserDTO extractData(ResultSet rs) throws SQLException, DataAccessException {
         while (rs.next()) {
@@ -85,7 +87,6 @@ public class UserWithCreatedAndCheckedSectionsExtractor implements ResultSetExtr
                 }
             }
         }
-
         if (user != null) {
             if (createdAdverts != null) {
                 user.setCreatedAdverts(new ArrayList<>(createdAdverts.values()));
