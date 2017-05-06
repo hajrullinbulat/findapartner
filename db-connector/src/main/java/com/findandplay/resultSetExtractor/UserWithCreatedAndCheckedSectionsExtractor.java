@@ -18,7 +18,6 @@ public class UserWithCreatedAndCheckedSectionsExtractor implements ResultSetExtr
     private UserDTO user;
 
 
-    //todo переделать под checked
     @Override
     public UserDTO extractData(ResultSet rs) throws SQLException, DataAccessException {
         while (rs.next()) {
@@ -35,7 +34,7 @@ public class UserWithCreatedAndCheckedSectionsExtractor implements ResultSetExtr
                     AdvertDTO advert = AdvertDTO.builder()
                             .id(advertId)
                             .info(rs.getString("advert_info"))
-                            .sport(SportType.valueOf(rs.getString("sport_name"))).build();
+                            .sport(SportType.valueOf(rs.getString("advert_sport_name"))).build();
                     createdAdverts.put(advertId, advert);
                 }
                 Long checkedAdvertsId = (Long) rs.getObject("my_adverts_id");
@@ -75,7 +74,7 @@ public class UserWithCreatedAndCheckedSectionsExtractor implements ResultSetExtr
                                 .id((Long) rs.getObject("checked_sections_user_id"))
                                 .name(rs.getString("checked_sections_user_name")).build();
                         CheckedSectionByUserDTO checkedSection = CheckedSectionByUserDTO.builder()
-                                .id(sectionId)
+                                .id(checkedSectionsId)
                                 .user(user).build();
                         checkedSectionsByUsers.put(checkedSectionsId, checkedSection);
 

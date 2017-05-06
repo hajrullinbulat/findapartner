@@ -1,0 +1,10 @@
+jar {
+    baseName = 'jwt'
+    version = '0.0.1'
+}
+
+dependencies {
+    compile("io.jsonwebtoken:jjwt:0.7.0")
+
+    compile project(":db-connector")
+}

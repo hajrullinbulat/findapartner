@@ -1,16 +1,54 @@
+#mine
+pagination:
+  adverts:
+    limit: 10
+password:
+  strength: 4
+jwt:
+  header: Authorization
+  secret: mySecret
+  expiration: 604800
+  claim:
+    name: sub
+    created: created
+  route:
+    authentication:
+      path: auth
+      refresh: refresh
+#app
 server:
-  port: 8081
+  port: 8080
+  context-path: /api
 spring:
-  boot:
-    admin:
-      url: http://localhost:8082
+  jackson:
+      serialization:
+        INDENT_OUTPUT: true
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/findapartner
+    url: jdbc:postgresql://localhost:5432/findandplay
     username: postgres
     password: postgres
     platform: postgres
+  jdbc_datasource:
+      type: com.zaxxer.hikari.HikariDataSource
+      driver-class-name: org.postgresql.Driver
+      url: jdbc:postgresql://localhost:5432/findandplay
+      username: postgres
+      password: postgres
+      platform: postgres
+      hikari:
+        idle-timeout: 10000
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     show-sql: true
+    properties:
+      jadira:
+        usertype:
+          autoRegisterUserTypes: true
+      hibernate:
+        format_sql: true
+    database-platform: org.hibernate.dialect.PostgreSQL94Dialect
+  #  boot:
+  #    admin:
+  #      url: http://localhost:8082

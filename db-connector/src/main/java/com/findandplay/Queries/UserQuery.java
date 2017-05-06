@@ -7,7 +7,7 @@ public interface UserQuery {
                     "  me.user_name              AS my_name,\n" +
                     "  a.id                      AS advert_id,\n" +
                     "  a.advert_info             AS advert_info,\n" +
-                    "  a.sport                   AS sport_name,\n" +
+                    "  a.advert_sport            AS advert_sport_name,\n" +
                     "  ca.id                     AS my_adverts_id,\n" +
                     "  ca.user_id                AS user_id_from_my_adverts,\n" +
                     "  ca.checked_adverts_status AS status_of_checked_advert,\n" +
@@ -36,18 +36,20 @@ public interface UserQuery {
 
     String userWithCheckedAdverts =
             "SELECT\n" +
-                    "  me.id,\n" +
-                    "  me.user_name,\n" +
-                    "  adv.id,\n" +
+                    "  me.id               AS me_id,\n" +
+                    "  me.user_name        AS me_user_name,\n" +
+                    "  adv.id              AS advert_id,\n" +
                     "  adv.advert_info,\n" +
-                    "  adv.sport,\n" +
-                    "  ch_adv_u.id,\n" +
+                    "  adv.advert_sport,\n" +
+                    "  ch_adv.id           AS checked_adverts_id,\n" +
+                    "  ch_adv.checked_adverts_status,\n" +
+                    "  ch_adv_u.id         AS user_id,\n" +
                     "  ch_adv_u.user_name,\n" +
-                    "  ch_adv_u.email\n" +
+                    "  ch_adv_u.user_email\n" +
                     "FROM users me\n" +
                     "  INNER JOIN checked_adverts me_ch_adv ON me_ch_adv.user_id = me.id\n" +
                     "  INNER JOIN adverts adv ON me_ch_adv.advert_id = adv.id\n" +
                     "  INNER JOIN checked_adverts ch_adv ON ch_adv.advert_id = adv.id\n" +
                     "  INNER JOIN users ch_adv_u ON ch_adv.user_id = ch_adv_u.id\n" +
-                    "WHERE me.msisdn = '79991697612';";
+                    "WHERE me.msisdn = ? and ch_adv_u.id != me.id";
 }

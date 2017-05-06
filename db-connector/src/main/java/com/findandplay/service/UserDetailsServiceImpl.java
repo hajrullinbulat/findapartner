@@ -40,6 +40,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .key(dbUser.getKey())
                 .created(dbUser.getCreated())
                 .lastAction(dbUser.getLastAction())
+                .lastPasswordReset(dbUser.getLastPasswordReset())
                 .city(dbUser.getCity())
                 .sports(dbUser.getSports())
                 .roles(

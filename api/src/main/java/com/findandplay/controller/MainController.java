@@ -35,12 +35,30 @@ public class MainController {
         return ResponseEntity.ok(userWithCheckedAdverts);
     }
 
-    //todo обдумать
-    @GetMapping("/find")
-    public ResponseEntity search(
-            @RequestParam(value = "page", required = false, defaultValue = "1") Integer page
+    @GetMapping("/find/advert")
+    public ResponseEntity searchAdverts(
+            @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+            @RequestParam(value = "sport") SportType sport
     ) {
-        return ResponseEntity.ok(advertJDBCService.getAdverts(SportType.FOOTBALL, page));
+        return ResponseEntity.ok(advertJDBCService.getAdverts(sport, page));
+    }
+
+    @GetMapping("/find/section")
+    public ResponseEntity searchSections(
+            @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+            @RequestParam(value = "sport") SportType sport
+
+    ) {
+        return ResponseEntity.ok(advertJDBCService.getAdverts(sport, page));
+    }
+
+    @GetMapping("/find/space")
+    public ResponseEntity searchSpaces(
+            @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+            @RequestParam(value = "sport") SportType sport
+
+    ) {
+        return ResponseEntity.ok(advertJDBCService.getAdverts(sport, page));
     }
 
 

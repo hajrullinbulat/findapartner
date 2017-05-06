@@ -8,5 +8,5 @@ dependencies {
 //	compile('de.codecentric:spring-boot-admin-server-ui:1.2.3')
 	compile('org.springframework.boot:spring-boot-starter-freemarker')
 
-	compile project(":auth")
+	compile project(":jwt")
 }

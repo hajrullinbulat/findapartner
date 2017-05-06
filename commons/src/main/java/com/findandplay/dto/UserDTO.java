@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -36,6 +37,8 @@ public class UserDTO {
     private LocalDateTime created;
 
     private LocalDateTime lastAction;
+
+    private Date lastPasswordReset;
 
     private City city;
 

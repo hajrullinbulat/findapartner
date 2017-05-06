@@ -29,19 +29,19 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
 
     private final UserDetailsServiceImpl userDetailsService;
 
-    private final int passStrength;
+    private final int passStrong;
 
     @Autowired
     public OAuth2Config(
             DataSource dataSource,
             @Qualifier("authenticationManagerBean") AuthenticationManager authenticationManager,
             UserDetailsServiceImpl userDetailsService,
-            @Value("${password.strength}") int passStrength
+            @Value("${password.strength}") int passStrong
     ) {
         this.dataSource = dataSource;
         this.authenticationManager = authenticationManager;
         this.userDetailsService = userDetailsService;
-        this.passStrength = passStrength;
+        this.passStrong = passStrong;
     }
 
     @Override
@@ -72,6 +72,6 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(passStrength);
+        return new BCryptPasswordEncoder(passStrong);
     }
 }

@@ -1,8 +1,8 @@
 rootProject.name = 'FindAndPlay'
 
 include 'api'
-include 'public-web'
 include 'private-web'
+include 'jwt'
 include 'db-connector'
 include 'commons'
-include 'auth'
+//include 'auth'

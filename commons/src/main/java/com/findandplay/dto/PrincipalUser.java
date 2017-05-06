@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -37,6 +38,8 @@ public class PrincipalUser implements UserDetails {
     private LocalDateTime created;
 
     private LocalDateTime lastAction;
+
+    private Date lastPasswordReset;
 
     private City city;
 

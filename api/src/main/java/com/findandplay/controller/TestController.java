@@ -1,10 +1,10 @@
 package com.findandplay.controller;
 
 import com.cosium.spring.data.jpa.entity.graph.domain.EntityGraphUtils;
+import com.findandplay.configuration.other.JwtTokenUtil;
 import com.findandplay.dto.PrincipalUser;
 import com.findandplay.dto.UserDTO;
 import com.findandplay.entity.AdvertEntity;
-import com.findandplay.entity.SpaceEntity;
 import com.findandplay.entity.UserEntity;
 import com.findandplay.enums.City;
 import com.findandplay.enums.Skill;
@@ -14,18 +14,22 @@ import com.findandplay.jpaRepository.AdvertRepository;
 import com.findandplay.jpaRepository.CheckedAdverts;
 import com.findandplay.jpaRepository.SpaceRepository;
 import com.findandplay.jpaRepository.UserRepository;
-import com.findandplay.json.SpaceSportsJson;
 import com.findandplay.json.UserSportJson;
 import com.findandplay.json.UserSportsJson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import java.nio.file.attribute.UserPrincipal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +45,11 @@ public class TestController {
     private final CheckedAdverts checkedAdverts;
     private final UserJDBCRepository userJDBCRepository;
     private final Integer passStrong;
+    private final JwtTokenUtil jwtTokenUtil;
+    private final UserDetailsService userDetailsService;
+
+    @Value("${jwt.header}")
+    private String tokenHeader;
 
     @Autowired
     public TestController(
@@ -49,14 +58,16 @@ public class TestController {
             SpaceRepository spaceRepository,
             CheckedAdverts checkedAdverts,
             UserJDBCRepository userJDBCRepository,
-            @Value("${password.strength}") Integer passStrong
-    ) {
+            @Value("${password.strength}") Integer passStrong,
+            JwtTokenUtil jwtTokenUtil, UserDetailsService userDetailsService) {
         this.userRepository = userRepository;
         this.advertRepository = advertRepository;
         this.spaceRepository = spaceRepository;
         this.checkedAdverts = checkedAdverts;
         this.userJDBCRepository = userJDBCRepository;
         this.passStrong = passStrong;
+        this.jwtTokenUtil = jwtTokenUtil;
+        this.userDetailsService = userDetailsService;
     }
 
     @GetMapping("/")
@@ -132,5 +143,18 @@ public class TestController {
         return ResponseEntity.ok(userWithCreatedAndCheckedSections);
     }
 
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    @ResponseBody
+    public PrincipalUser getAuthenticatedUser(HttpServletRequest request) {
+        String token = request.getHeader(tokenHeader);
+        String username = jwtTokenUtil.getUsernameFromToken(token);
+        PrincipalUser user = (PrincipalUser) userDetailsService.loadUserByUsername(username);
+        return user;
+    }
 
+    @RequestMapping(value = "/user1", method = RequestMethod.GET)
+    @ResponseBody
+    public PrincipalUser getAuthenticatedUser(@AuthenticationPrincipal PrincipalUser user) {
+        return user;
+    }
 }
