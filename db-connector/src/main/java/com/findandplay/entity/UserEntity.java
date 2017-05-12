@@ -22,6 +22,11 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @EqualsAndHashCode(callSuper = true)
+@NamedEntityGraphs({
+        @NamedEntityGraph(name = "UserEntity.roles", attributeNodes = {
+                @NamedAttributeNode("roles"),
+        })
+})
 public class UserEntity extends BaseEntity {
     @Column(name = "user_name")
     private String name;
@@ -60,7 +65,7 @@ public class UserEntity extends BaseEntity {
     @Embedded
     private ImageEmbeddable avatar;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_role",
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})

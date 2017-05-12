@@ -3,8 +3,8 @@ package com.findandplay.controller;
 import com.findandplay.dto.PrincipalUser;
 import com.findandplay.dto.UserDTO;
 import com.findandplay.enums.SportType;
-import com.findandplay.jdbcRepository.UserJDBCRepository;
-import com.findandplay.service.AdvertJDBCService;
+import com.findandplay.jdbcService.AdvertJDBCService;
+import com.findandplay.jdbcService.UserJDBCService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -17,21 +17,21 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class MainController {
-    private final UserJDBCRepository userJDBCRepository;
+    private final UserJDBCService userJDBCService;
     private final AdvertJDBCService advertJDBCService;
 
     @Autowired
     public MainController(
-            UserJDBCRepository userJDBCRepository,
+            UserJDBCService userJDBCService,
             AdvertJDBCService advertJDBCService
     ) {
-        this.userJDBCRepository = userJDBCRepository;
+        this.userJDBCService = userJDBCService;
         this.advertJDBCService = advertJDBCService;
     }
 
     @GetMapping("/mainTest")
     public ResponseEntity loadMain(@AuthenticationPrincipal PrincipalUser user) {
-        UserDTO userWithCheckedAdverts = userJDBCRepository.getUserWithCheckedAdverts(user.getMsisdn());
+        UserDTO userWithCheckedAdverts = userJDBCService.getUserWithCheckedAdverts(user.getMsisdn());
         return ResponseEntity.ok(userWithCheckedAdverts);
     }
 

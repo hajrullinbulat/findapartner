@@ -28,8 +28,6 @@ public class UserDTO {
 
     private String msisdn;
 
-    private String password;
-
     private boolean confirmed;
 
     private String key;

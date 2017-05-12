@@ -1,4 +1,4 @@
-package com.findandplay.service;
+package com.findandplay.jdbcService;
 
 import com.findandplay.dto.AdvertDTO;
 import com.findandplay.enums.SportType;

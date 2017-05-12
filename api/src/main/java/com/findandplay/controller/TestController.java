@@ -29,7 +29,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.nio.file.attribute.UserPrincipal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -101,7 +100,7 @@ public class TestController {
                 .sports(userSportsJson)
                 .build();
         userRepository.save(user);
-////
+
         UserEntity one = userRepository.findOne(73L);
 //
 //        List<SportType> sports = new ArrayList<>();
@@ -148,8 +147,7 @@ public class TestController {
     public PrincipalUser getAuthenticatedUser(HttpServletRequest request) {
         String token = request.getHeader(tokenHeader);
         String username = jwtTokenUtil.getUsernameFromToken(token);
-        PrincipalUser user = (PrincipalUser) userDetailsService.loadUserByUsername(username);
-        return user;
+        return (PrincipalUser) userDetailsService.loadUserByUsername(username);
     }
 
     @RequestMapping(value = "/user1", method = RequestMethod.GET)

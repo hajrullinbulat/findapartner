@@ -15,6 +15,7 @@ import java.util.List;
  * Created by hajrullinbulat on 30.04.17.
  */
 @Repository
+@Transactional
 public class AdvertJDBCRepository {
     private final JdbcTemplate jdbcTemplate;
 
